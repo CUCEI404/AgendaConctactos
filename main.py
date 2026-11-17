@@ -1,6 +1,9 @@
 import customtkinter as ctk
 
+
 ctk.set_appearance_mode("dark")
+
+
 
 
 class AgendaApp(ctk.CTk):
@@ -11,19 +14,35 @@ class AgendaApp(ctk.CTk):
         self.configure(fg_color="#020617")
         self.modo = "BASE"
 
+
         self._crear_header()
         self._crear_cuerpo()
+
 
     def _crear_header(self):
         header = ctk.CTkFrame(self, fg_color="transparent")
         header.pack(fill="x", padx=24, pady=(20, 12))
 
+
+        titulos = ctk.CTkFrame(header, fg_color="transparent")
+        titulos.pack(side="left")
+
+
         ctk.CTkLabel(
-            header,
+            titulos,
             text="Agenda Algorítmica — Equipo 404",
             font=ctk.CTkFont(size=20, weight="bold"),
             text_color="#818cf8",
-        ).pack(side="left")
+        ).pack(anchor="w")
+
+
+        ctk.CTkLabel(
+            titulos,
+            text="Comparativa: Búsqueda Secuencial vs. Merge Sort + Búsqueda Binaria",
+            font=ctk.CTkFont(size=12),
+            text_color="#94a3b8",
+        ).pack(anchor="w")
+
 
         self.btn_dyv = ctk.CTkButton(
             header, text="Divide y Vencerás", fg_color="#1e293b", width=140,
@@ -31,11 +50,13 @@ class AgendaApp(ctk.CTk):
         )
         self.btn_dyv.pack(side="right")
 
+
         self.btn_base = ctk.CTkButton(
             header, text="Modo Base O(n)", fg_color="#d97706", width=140,
             command=lambda: self._cambiar_modo("BASE")
         )
         self.btn_base.pack(side="right", padx=8)
+
 
     def _crear_cuerpo(self):
         cuerpo = ctk.CTkFrame(self, fg_color="transparent")
@@ -44,26 +65,32 @@ class AgendaApp(ctk.CTk):
         cuerpo.grid_columnconfigure(1, weight=2)
         cuerpo.grid_rowconfigure(0, weight=1)
 
+
         # Panel izquierdo: Formulario
         izq = ctk.CTkFrame(cuerpo, fg_color="#0f172a", corner_radius=12)
         izq.grid(row=0, column=0, sticky="nsew", padx=(0, 10))
+
 
         ctk.CTkLabel(izq, text="Nuevo Contacto", font=ctk.CTkFont(size=15, weight="bold")).pack(anchor="w", padx=16, pady=(16, 10))
         self.in_nombre = self._input(izq, "Nombre completo")
         self.in_tel = self._input(izq, "Teléfono")
         self.in_correo = self._input(izq, "Correo electrónico")
 
+
         ctk.CTkButton(
             izq, text="Guardar", fg_color="#4f46e5",
             command=lambda: self.lbl_estado.configure(text="Listo para conectar guardar (Issue #6)")
         ).pack(fill="x", padx=16, pady=8)
 
+
         self.lbl_estado = ctk.CTkLabel(izq, text="Interfaz base lista.", text_color="#94a3b8", wraplength=220)
         self.lbl_estado.pack(anchor="w", padx=16, pady=6)
+
 
         # Panel derecho: Buscador, métricas y lista
         der = ctk.CTkFrame(cuerpo, fg_color="#0f172a", corner_radius=12)
         der.grid(row=0, column=1, sticky="nsew", padx=(10, 0))
+
 
         busq = ctk.CTkFrame(der, fg_color="transparent")
         busq.pack(fill="x", padx=16, pady=(16, 10))
@@ -74,6 +101,7 @@ class AgendaApp(ctk.CTk):
             command=lambda: self.lbl_estado.configure(text="Listo para conectar búsqueda (Issue #6)")
         ).pack(side="right")
 
+
         # Tarjetas de métricas
         stats = ctk.CTkFrame(der, fg_color="transparent")
         stats.pack(fill="x", padx=16, pady=6)
@@ -82,19 +110,43 @@ class AgendaApp(ctk.CTk):
         self.lbl_rev = self._metrica(stats, 1, "Revisiones", "0")
         self.lbl_ms = self._metrica(stats, 2, "Tiempo (ms)", "0.000")
 
+
         # Botones de carga masiva
         lotes = ctk.CTkFrame(der, fg_color="transparent")
         lotes.pack(fill="x", padx=16, pady=8)
         for n in ("1,000", "10,000", "100,000"):
             ctk.CTkButton(lotes, text=f"Cargar {n}", fg_color="#1e293b", width=105).pack(side="left", padx=(0, 6))
 
+
         self.lista_box = ctk.CTkScrollableFrame(der, fg_color="#020617")
         self.lista_box.pack(fill="both", expand=True, padx=16, pady=(4, 16))
+
+
+        # Encabezado y filas de ejemplo para validar el maquetado
+        ctk.CTkLabel(
+            self.lista_box,
+            text="VISTA PREVIA DE CONTACTOS (EJEMPLO)",
+            font=ctk.CTkFont(size=11, weight="bold"),
+            text_color="#64748b",
+        ).pack(anchor="w", padx=8, pady=(4, 6))
+
+
+        ejemplos = [
+            ("Ana García", "3310000001", "ana.garcia@equipo404.dev"),
+            ("Luis Ortiz", "3310000002", "luis.ortiz@equipo404.dev"),
+        ]
+        for nombre, tel, correo in ejemplos:
+            fila = ctk.CTkFrame(self.lista_box, fg_color="#1e293b", corner_radius=6)
+            fila.pack(fill="x", padx=6, pady=3)
+            ctk.CTkLabel(fila, text=nombre, font=ctk.CTkFont(size=12, weight="bold")).pack(side="left", padx=10, pady=6)
+            ctk.CTkLabel(fila, text=f"{tel}  |  {correo}", font=ctk.CTkFont(size=11), text_color="#94a3b8").pack(side="right", padx=10, pady=6)
+
 
     def _input(self, padre, texto):
         e = ctk.CTkEntry(padre, placeholder_text=texto, fg_color="#1e293b")
         e.pack(fill="x", padx=16, pady=5)
         return e
+
 
     def _metrica(self, padre, col, titulo, valor):
         card = ctk.CTkFrame(padre, fg_color="#1e293b", corner_radius=8)
@@ -104,11 +156,14 @@ class AgendaApp(ctk.CTk):
         lbl.pack(pady=(0, 6))
         return lbl
 
+
     def _cambiar_modo(self, modo):
         self.modo = modo
         self.btn_base.configure(fg_color="#d97706" if modo == "BASE" else "#1e293b")
         self.btn_dyv.configure(fg_color="#4f46e5" if modo == "DYV" else "#1e293b")
         self.lbl_estado.configure(text=f"Modo visual: {modo}")
+
+
 
 
 if __name__ == "__main__":
