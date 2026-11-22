@@ -1,0 +1,3 @@
+Ana García|3310000001|ana.garcia@equipo404.dev|1998-11-28
+Luis Ortiz|3310000002|luis.ortiz@equipo404.dev|2000-12-05
+#NOTA|2026-11-30|Entregar proyecto de Análisis de Algoritmos
