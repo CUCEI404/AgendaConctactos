@@ -39,9 +39,6 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
 .lotes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .lab{background:#0b1220;border:1px solid #1e293b;border-radius:10px;padding:12px;margin-bottom:10px}
 .lab h3{margin:0 0 8px}
-.barra-fila{display:grid;grid-template-columns:110px 1fr 90px;gap:8px;align-items:center;font-size:12px;margin:5px 0}
-.barra{height:12px;background:#1e293b;border-radius:6px;overflow:hidden}
-.barra i{display:block;height:100%;border-radius:6px;min-width:3px}
 .nota{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.5}
 .paso{font-size:11px;color:var(--mut);margin:6px 0 2px;font-family:ui-monospace,Consolas,monospace}
 .pista{position:relative;height:8px;background:#1e293b;border-radius:4px}
@@ -141,15 +138,6 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
       <div class="stat"><small>Revisiones</small><b id="mRev">0</b></div>
       <div class="stat"><small>Búsqueda (ms)</small><b id="mMs">0.000</b></div>
       <div class="stat"><small>Ordenar (ms)</small><b id="mSort">0.000</b></div>
-    </div>
-
-    <div class="lotes">
-      <button id="btnCarrera" class="verde">🏁 Carrera de algoritmos</button>
-    </div>
-
-    <div class="lab" id="labCarrera" hidden>
-      <h3>Carrera: secuencial vs. merge sort + binaria</h3>
-      <div id="carreraBody"></div>
     </div>
 
     <div class="lab" id="labPasos" hidden>
@@ -356,7 +344,7 @@ async function importar(ev) {
   ev.target.value = "";
 }
 
-/* ---------- interfaz: lista, búsqueda, carrera ---------- */
+/* ---------- interfaz: lista y búsqueda ---------- */
 function mostrarLista(arr, titulo) {
   const box = $("lista"); box.replaceChildren();
   const h = document.createElement("div"); h.className = "encabezado"; h.textContent = titulo; box.appendChild(h);
@@ -409,36 +397,6 @@ function buscar() {
   if (S.modo === "DYV") pintarPasos(r.pasos, S.orden.length); else $("labPasos").hidden = true;
   mostrarLista(r.res, `RESULTADOS: ${fmt(r.res.length)} coincidencia(s)`);
   msg(`${S.modo === "BASE" ? "Secuencial" : "Binaria"}: ${fmt(r.rev)} revisiones en ${r.ms.toFixed(3)} ms.`);
-}
-function carrera() {
-  if (S.lista.length < 2) { msg("Necesitas al menos 2 contactos (o importa un .txt grande) para la carrera.", true); return; }
-  if (!norm($("inBuscar").value)) $("inBuscar").value = S.lista[Math.floor(Math.random() * S.lista.length)].nombre;
-  const q = norm($("inBuscar").value);
-  const recienOrdenado = asegurarOrden();
-  const s = busquedaSecuencial(q), b = busquedaBinaria(q);
-  const n = S.lista.length, max = Math.max(s.rev, b.rev);
-  const lg = Math.ceil(Math.log2(n));
-  const ahorro = s.rev - b.rev;
-  const equilibrio = ahorro > 0 ? Math.ceil(S.sortComps / ahorro) : null;
-  const body = $("carreraBody"); body.replaceChildren();
-  [["Secuencial O(n)", s, "var(--amber)"], ["Binaria O(log n)", b, "var(--indb)"]].forEach(([nom, r, col]) => {
-    const f = document.createElement("div"); f.className = "barra-fila";
-    const a = document.createElement("span"); a.textContent = nom;
-    const bar = document.createElement("div"); bar.className = "barra";
-    const i = document.createElement("i"); i.style.width = (r.rev / max * 100) + "%"; i.style.background = col; bar.appendChild(i);
-    const c = document.createElement("span"); c.textContent = `${fmt(r.rev)} rev.`;
-    f.append(a, bar, c); body.appendChild(f);
-  });
-  const nota = document.createElement("div"); nota.className = "nota";
-  nota.textContent =
-    `n = ${fmt(n)} | ⌈log₂ n⌉ = ${lg} | tiempos: secuencial ${s.ms.toFixed(3)} ms, binaria ${b.ms.toFixed(3)} ms (un solo disparo, el reloj tiene ruido). ` +
-    `Merge Sort ${recienOrdenado ? "acaba de costar" : "costó"} ${fmt(S.sortComps)} comparaciones (${S.sortMs.toFixed(1)} ms). ` +
-    (equilibrio ? `Cada búsqueda binaria ahorra ${fmt(ahorro)} revisiones, así que ordenar se amortiza tras ≈ ${fmt(equilibrio)} búsqueda(s).` : "Con tan pocos contactos no hay ahorro: la diferencia aparece cuando n crece.");
-  body.appendChild(nota);
-  $("labCarrera").hidden = false;
-  $("mRev").textContent = fmt(b.rev); $("mMs").textContent = b.ms.toFixed(3);
-  pintarPasos(b.pasos, S.orden.length);
-  mostrarLista(b.res, `RESULTADOS: ${fmt(b.res.length)} coincidencia(s)`);
 }
 
 /* ---------- calendario ---------- */
@@ -550,7 +508,6 @@ $("btnDyv").onclick = () => cambiarModo("DYV");
 $("btnBuscar").onclick = buscar;
 $("btnTodos").onclick = () => { $("inBuscar").value = ""; $("labPasos").hidden = true; refrescar(); };
 $("inBuscar").addEventListener("keydown", e => { if (e.key === "Enter") buscar(); });
-$("btnCarrera").onclick = carrera;
 $("btnDescargar").onclick = descargar;
 $("inImportar").onchange = importar;
 $("btnAbrir").onclick = abrirArchivo;

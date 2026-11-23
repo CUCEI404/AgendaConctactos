@@ -64,7 +64,6 @@ El sistema permite alternar en tiempo real entre ambos motores de ejecución en 
 
 ## Características Técnicas
 
-* **Carrera de Algoritmos (Benchmarking):** Ejecuta de forma comparativa la búsqueda secuencial y la búsqueda binaria sobre el conjunto de datos cargado, presentando gráficas de barras proporcionales, el costo computacional de *Merge Sort* y el **punto de equilibrio** (número mínimo de búsquedas necesarias para amortizar el costo inicial de ordenamiento).
 * **Trazabilidad de Búsqueda Binaria:** Visualiza cada iteración del algoritmo mostrando los límites del subarreglo activo $[lo, hi)$, el índice central (`mid`) y la dirección de descarte.
 * **Calendario Interactivo y Próximos Eventos:** Vista mensual navegable con indicadores visuales para cumpleaños y notas, panel de detalle diario con cálculo automático de edad y resumen cronológico de los próximos 30 días.
 * **Persistencia en Archivo Plano (`contactos.txt`):**
@@ -93,4 +92,4 @@ Al tratarse de una aplicación web estática sin dependencias externas ni servic
 1. Clone el repositorio o descargue los archivos del proyecto en su equipo local.
 2. Abra el archivo `index.html` en un navegador web moderno (se recomienda **Google Chrome** o **Microsoft Edge** para habilitar la escritura directa en archivos locales).
 3. Utilice el panel izquierdo para vincular (`Abrir contactos.txt` / `Crear contactos.txt`) o importar un archivo `.txt` con lotes de prueba.
-4. Alterne entre **Modo Base O(n)** y **Divide y Vencerás** en el encabezado, o ejecute **Carrera de algoritmos** para evaluar el rendimiento comparativo.
+4. Alterne entre **Modo Base O(n)** y **Divide y Vencerás** en el encabezado para comparar las revisiones y el tiempo de cada búsqueda.
