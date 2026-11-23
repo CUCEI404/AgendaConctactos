@@ -294,9 +294,13 @@ function parsear(texto) {
 }
 function reemplazarTodo({ contactos, notas }) {
   S.lista = []; S.orden = []; S.tels = new Set(); S.sucio = true;
-  agregar(contactos); S.sucio = true;
+  const unicos = [];
+  for (const c of contactos) if (!S.tels.has(c.tel)) { S.tels.add(c.tel); unicos.push(c); }
+  agregar(unicos); S.sucio = true;
   S.notas = notas;
+  return contactos.length - unicos.length;
 }
+const textoRepetidos = n => n ? ` Se descartaron ${fmt(n)} repetido(s).` : "";
 async function anexarTexto(texto) {
   if (!S.handle) return;
   try {
@@ -323,9 +327,9 @@ async function abrirArchivo() {
     await h.requestPermission({ mode: "readwrite" });
     const texto = await (await h.getFile()).text();
     S.handle = h;
-    reemplazarTodo(parsear(texto));
+    const repetidos = reemplazarTodo(parsear(texto));
     infoArchivo(); refrescar(); pintarCalendario();
-    msg(`Se cargaron ${fmt(S.lista.length)} contactos y ${fmt(S.notas.length)} notas desde ${h.name}.`);
+    msg(`Se cargaron ${fmt(S.lista.length)} contactos y ${fmt(S.notas.length)} notas desde ${h.name}.` + textoRepetidos(repetidos));
   } catch (e) { if (e.name !== "AbortError") msg("No se pudo abrir: " + e.message, true); }
 }
 async function crearArchivo() {
@@ -345,9 +349,9 @@ function descargar() {
 }
 async function importar(ev) {
   const f = ev.target.files[0]; if (!f) return;
-  reemplazarTodo(parsear(await f.text()));
+  const repetidos = reemplazarTodo(parsear(await f.text()));
   refrescar(); pintarCalendario();
-  msg(`Importados ${fmt(S.lista.length)} contactos y ${fmt(S.notas.length)} notas de ${f.name}.`);
+  msg(`Importados ${fmt(S.lista.length)} contactos y ${fmt(S.notas.length)} notas de ${f.name}.` + textoRepetidos(repetidos));
   ev.target.value = "";
 }
 
