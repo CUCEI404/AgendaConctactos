@@ -199,6 +199,13 @@ function busquedaSecuencial(q) {
   return { res, rev, ms: performance.now() - t0, pasos: [] };
 }
 
+function existeSecuencial(tel) {
+  const t0 = performance.now();
+  let rev = 0;
+  for (const c of S.lista) { rev++; if (c.tel === tel) return { existe: true, rev, ms: performance.now() - t0 }; }
+  return { existe: false, rev, ms: performance.now() - t0 };
+}
+
 // Cota inferior binaria: O(log n) para ubicar el primer prefijo + recorrido de las coincidencias.
 function posicionInferior(a, q, pasos) {
   let lo = 0, hi = a.length, rev = 0;
@@ -350,13 +357,17 @@ const CONTROL = {
     nombre: "Secuencial",
     titulo: "CONTACTOS (ORDEN DE LLEGADA)",
     lista: () => S.lista,
-    buscar: q => busquedaSecuencial(q)
+    buscar: q => busquedaSecuencial(q),
+    existe: tel => existeSecuencial(tel),
+    repetido: r => `Ese teléfono ya existe (revisión uno por uno: ${fmt(r.rev)} revisiones).`
   },
   DYV: {
     nombre: "Binaria",
     titulo: "CONTACTOS (ORDENADOS POR MERGE SORT)",
     lista: () => { asegurarOrden(); return S.orden; },
-    buscar: q => { asegurarOrden(); return busquedaBinaria(q); }
+    buscar: q => { asegurarOrden(); return busquedaBinaria(q); },
+    existe: tel => ({ existe: S.tels.has(tel), rev: 1, ms: 0 }),
+    repetido: () => "Ese teléfono ya existe (detectado en O(1) con un Set)."
   }
 };
 const control = () => CONTROL[S.modo];
@@ -546,7 +557,10 @@ $("form").addEventListener("submit", async ev => {
   if (!/^\+?\d{7,15}$/.test(tel)) return msg("Teléfono inválido: solo dígitos, de 7 a 15.", true);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return msg("Correo inválido.", true);
   if (!ES_FECHA.test(nac) || nac < "1900-01-01" || nac > hoyISO()) return msg("Fecha de nacimiento inválida (entre 1900 y hoy).", true);
-  if (S.tels.has(tel)) return msg("Ese teléfono ya existe (detectado en O(1) con un Set).", true);
+  const ctl = control(), dup = ctl.existe(tel);
+  $("mRev").textContent = fmt(dup.rev);
+  $("mMs").textContent = dup.ms.toFixed(3);
+  if (dup.existe) return msg(ctl.repetido(dup), true);
   const c = crear(nombre, tel, correo, nac);
   agregar([c]);
   await anexarTexto(aLinea(c));
