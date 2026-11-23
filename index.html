@@ -36,7 +36,8 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
 .stat{background:var(--card);border-radius:8px;text-align:center;padding:6px}
 .stat small{display:block;font-size:11px;color:var(--mut)}
 .stat b{font-size:17px}
-.lotes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.lotes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center}
+.lotes small{font-size:12px;color:var(--mut);margin-right:4px}
 .lab{background:#0b1220;border:1px solid #1e293b;border-radius:10px;padding:12px;margin-bottom:10px}
 .lab h3{margin:0 0 8px}
 .nota{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.5}
@@ -138,6 +139,14 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
       <div class="stat"><small>Revisiones</small><b id="mRev">0</b></div>
       <div class="stat"><small>Búsqueda (ms)</small><b id="mMs">0.000</b></div>
       <div class="stat"><small>Ordenar (ms)</small><b id="mSort">0.000</b></div>
+    </div>
+
+    <div class="lotes">
+      <small>Casos de prueba:</small>
+      <button class="caso" data-n="1000">1,000</button>
+      <button class="caso" data-n="10000">10,000</button>
+      <button class="caso" data-n="100000">100,000</button>
+      <button id="btnVaciar">Vaciar</button>
     </div>
 
     <div class="lab" id="labPasos" hidden>
@@ -293,6 +302,18 @@ function generarCasos(n, semilla = 404) {
     lote.push(crear(nombre, tel, correo, iso(y, m, d)));
   }
   return lote;
+}
+
+function cargarCaso(n) {
+  const t0 = performance.now();
+  reemplazarTodo({ contactos: generarCasos(n), notas: S.notas });
+  const ms = performance.now() - t0;
+  S.handle = null; infoArchivo();
+  $("inBuscar").value = ""; $("labPasos").hidden = true;
+  $("mRev").textContent = "0"; $("mMs").textContent = "0.000"; $("mSort").textContent = "0.000";
+  refrescar(); pintarCalendario();
+  msg(n ? `Caso de prueba: ${fmt(n)} contactos generados en ${ms.toFixed(1)} ms (solo en memoria; usa Descargar .txt para guardarlo).`
+        : "Agenda vacía.");
 }
 
 /* ---------- agregar contactos ---------- */
@@ -570,6 +591,8 @@ $("btnBuscar").onclick = buscar;
 $("btnTodos").onclick = () => { $("inBuscar").value = ""; $("labPasos").hidden = true; refrescar(); };
 $("inBuscar").addEventListener("keydown", e => { if (e.key === "Enter") buscar(); });
 $("btnDescargar").onclick = descargar;
+document.querySelectorAll(".caso").forEach(b => b.onclick = () => cargarCaso(Number(b.dataset.n)));
+$("btnVaciar").onclick = () => cargarCaso(0);
 $("inImportar").onchange = importar;
 $("btnAbrir").onclick = abrirArchivo;
 $("btnCrear").onclick = crearArchivo;
