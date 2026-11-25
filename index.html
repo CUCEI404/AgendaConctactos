@@ -324,8 +324,8 @@ function cargarCaso(n) {
 /* ---------- agregar contactos ---------- */
 function agregar(lote) {
   for (const c of lote) { S.lista.push(c); S.tels.add(c.tel); }
-  if (!S.sucio) { for (const c of lote) insertarOrdenado(c); }   // mantiene el orden sin re-ordenar todo
   if (lote.length > 1000) S.sucio = true;
+  else if (!S.sucio) { for (const c of lote) insertarOrdenado(c); }   // mantiene el orden sin re-ordenar todo
   S.cumplesOk = false;
 }
 
