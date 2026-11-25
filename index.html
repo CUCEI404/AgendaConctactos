@@ -26,6 +26,9 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
 .verde{background:var(--green)}
 .modo.base{background:var(--amber)}
 .modo.dyv{background:var(--indb)}
+.selector{text-align:right}
+.selector small{font-size:12px;color:var(--mut);margin-right:4px}
+#modoInfo{font-size:11px;color:var(--mut);margin-top:6px}
 #estado{font-size:12px;color:var(--mut);margin:10px 0;min-height:32px}
 #estado.error{color:var(--red)}
 .fila-btn{display:flex;flex-wrap:wrap;gap:6px}
@@ -77,9 +80,11 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
     <h1>Agenda Algorítmica — Equipo 404</h1>
     <p>Comparativa: Búsqueda Secuencial vs. Merge Sort + Búsqueda Binaria</p>
   </div>
-  <div>
-    <button id="btnBase" class="modo base">Modo Base O(n)</button>
-    <button id="btnDyv" class="modo">Divide y Vencerás</button>
+  <div class="selector" role="group" aria-label="Modo de la agenda">
+    <small>Modo:</small>
+    <button id="btnBase" class="modo base" aria-pressed="true">Modo Base O(n)</button>
+    <button id="btnDyv" class="modo" aria-pressed="false">Divide y Vencerás</button>
+    <div id="modoInfo"></div>
   </div>
 </header>
 
@@ -310,8 +315,8 @@ function cargarCaso(n) {
   const ms = performance.now() - t0;
   S.handle = null; infoArchivo();
   $("inBuscar").value = ""; $("labPasos").hidden = true;
-  $("mRev").textContent = "0"; $("mMs").textContent = "0.000"; $("mSort").textContent = "0.000";
-  refrescar(); pintarCalendario();
+  $("mRev").textContent = "0"; $("mMs").textContent = "0.000";
+  pintarModo(); refrescar(); pintarCalendario();
   msg(n ? `Caso de prueba: ${fmt(n)} contactos generados en ${ms.toFixed(1)} ms (solo en memoria; usa Descargar .txt para guardarlo).`
         : "Agenda vacía.");
 }
@@ -448,11 +453,26 @@ function refrescar() {
   const ctl = control();
   mostrarLista(ctl.lista(), ctl.titulo);
 }
+const INFO_MODO = {
+  BASE: "Lista en orden de llegada · búsqueda secuencial O(n) · repetidos: revisión uno por uno O(n)",
+  DYV: "Merge Sort O(n log n) (una vez) · búsqueda binaria O(log n) · repetidos: Set O(1)"
+};
+function pintarModo() {
+  for (const [id, modo, clase] of [["btnBase", "BASE", " base"], ["btnDyv", "DYV", " dyv"]]) {
+    const activo = S.modo === modo;
+    $(id).className = "modo" + (activo ? clase : "");
+    $(id).setAttribute("aria-pressed", activo);
+  }
+  $("modoInfo").textContent = INFO_MODO[S.modo];
+  $("mSort").textContent = S.modo === "DYV" && !S.sucio ? S.sortMs.toFixed(3) : "—";
+}
 function cambiarModo(m) {
+  if (m === S.modo) return;
   S.modo = m;
-  $("btnBase").className = "modo" + (m === "BASE" ? " base" : "");
-  $("btnDyv").className = "modo" + (m === "DYV" ? " dyv" : "");
+  pintarModo();
+  if (norm($("inBuscar").value)) return buscar();
   $("labPasos").hidden = true;
+  $("mRev").textContent = "0"; $("mMs").textContent = "0.000";
   refrescar();
   msg(m === "BASE" ? "Modo base: búsqueda secuencial O(n)." : "Modo DyV: Merge Sort O(n log n) + búsqueda binaria O(log n).");
 }
@@ -627,6 +647,7 @@ $("form").addEventListener("submit", async ev => {
 // Contactos de ejemplo del proyecto original
 agregar([crear("Ana García", "3310000001", "ana.garcia@equipo404.dev", "1998-11-28"),
          crear("Luis Ortiz", "3310000002", "luis.ortiz@equipo404.dev", "2000-12-05")]);
+pintarModo();
 refrescar();
 pintarCalendario();
 </script>
