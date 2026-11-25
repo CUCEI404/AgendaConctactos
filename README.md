@@ -10,6 +10,11 @@
 * **Emmanuel Alejandro Ortiz Segura**
 * **Roberto Hernández Zuñiga**
 
+## Enlaces
+
+* **Aplicación publicada (GitHub Pages):** https://cucei404.github.io/AgendaConctactos/
+* **Repositorio:** https://github.com/CUCEI404/AgendaConctactos
+
 ---
 
 ## Planteamiento del Problema
