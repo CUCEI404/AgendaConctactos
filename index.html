@@ -242,8 +242,12 @@ function busquedaBinaria(q) {
 
 // Inserción en arreglo ya ordenado: O(log n) para ubicar + O(n) de desplazamiento (splice).
 function insertarOrdenado(c) {
-  const { pos } = posicionInferior(S.orden, c.key, null);
-  S.orden.splice(pos, 0, c);
+  let lo = 0, hi = S.orden.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (S.orden[mid].key <= c.key) lo = mid + 1; else hi = mid;
+  }
+  S.orden.splice(lo, 0, c);
 }
 function asegurarOrden() {
   if (!S.sucio) return false;
