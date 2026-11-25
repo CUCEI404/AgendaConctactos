@@ -47,7 +47,14 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
 .paso{font-size:11px;color:var(--mut);margin:6px 0 2px;font-family:ui-monospace,Consolas,monospace}
 .pista{position:relative;height:8px;background:#1e293b;border-radius:4px}
 .pista i{position:absolute;top:0;bottom:0;background:var(--ind);border-radius:4px;min-width:2px}
-#lista{background:var(--bg);border-radius:10px;padding:8px;max-height:340px;overflow:auto}
+#lista,#contactosLista{background:var(--bg);border-radius:10px;padding:8px;max-height:340px;overflow:auto}
+#contactosLista{max-height:520px}
+.tabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:1px solid var(--card)}
+.tab{background:transparent;color:var(--mut);border-radius:8px 8px 0 0}
+.tab.activa{background:var(--card);color:var(--txt)}
+.contactos-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:12px;color:var(--mut)}
+.pag{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:8px;font-size:12px;color:var(--mut)}
+button:disabled{opacity:.4;cursor:default;filter:none}
 .encabezado{font-size:11px;font-weight:700;color:#64748b;margin:4px 6px 6px}
 .contacto{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--card);border-radius:6px;padding:6px 10px;margin:3px 0;font-size:12px}
 .contacto span:last-child{color:var(--mut)}
@@ -133,6 +140,12 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
   </div>
 
   <section class="panel">
+    <div class="tabs" role="tablist">
+      <button class="tab activa" data-tab="tabBusqueda" role="tab" aria-selected="true">Búsqueda</button>
+      <button class="tab" data-tab="tabContactos" role="tab" aria-selected="false">Todos los contactos</button>
+    </div>
+
+    <div id="tabBusqueda">
     <div class="busq">
       <input type="text" id="inBuscar" placeholder="Buscar por nombre (prefijo)...">
       <button id="btnBuscar" class="verde">Buscar</button>
@@ -160,6 +173,19 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
     </div>
 
     <div id="lista"></div>
+    </div>
+
+    <div id="tabContactos" hidden>
+      <div class="contactos-top">
+        <span id="contactosInfo"></span>
+      </div>
+      <div id="contactosLista"></div>
+      <div class="pag">
+        <button id="pagPrev" aria-label="Página anterior">‹</button>
+        <span id="pagInfo"></span>
+        <button id="pagNext" aria-label="Página siguiente">›</button>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -436,16 +462,18 @@ const CONTROL = {
 const control = () => CONTROL[S.modo];
 
 /* ---------- interfaz: lista y búsqueda ---------- */
+function filaContacto(c) {
+  const f = document.createElement("div"); f.className = "contacto";
+  const a = document.createElement("span"); a.textContent = c.nombre;
+  const b = document.createElement("span");
+  b.textContent = `${c.tel}  |  ${c.correo}` + (c.nac ? `  |  🎂 ${fechaCorta(c.nac)}` : "");
+  f.append(a, b);
+  return f;
+}
 function mostrarLista(arr, titulo) {
   const box = $("lista"); box.replaceChildren();
   const h = document.createElement("div"); h.className = "encabezado"; h.textContent = titulo; box.appendChild(h);
-  for (const c of arr.slice(0, MAX_FILAS)) {
-    const f = document.createElement("div"); f.className = "contacto";
-    const a = document.createElement("span"); a.textContent = c.nombre;
-    const b = document.createElement("span");
-    b.textContent = `${c.tel}  |  ${c.correo}` + (c.nac ? `  |  🎂 ${fechaCorta(c.nac)}` : "");
-    f.append(a, b); box.appendChild(f);
-  }
+  for (const c of arr.slice(0, MAX_FILAS)) box.appendChild(filaContacto(c));
   if (arr.length > MAX_FILAS) {
     const p = document.createElement("div"); p.className = "nota";
     p.textContent = `Mostrando ${MAX_FILAS} de ${fmt(arr.length)} (el DOM no es un algoritmo gratis: se pagina).`;
@@ -456,6 +484,7 @@ function refrescar() {
   $("mTotal").textContent = fmt(S.lista.length);
   const ctl = control();
   mostrarLista(ctl.lista(), ctl.titulo);
+  if (!$("tabContactos").hidden) pintarContactos();
 }
 const INFO_MODO = {
   BASE: "Lista en orden de llegada · búsqueda secuencial O(n) · repetidos: revisión uno por uno O(n)",
@@ -503,6 +532,30 @@ function buscar() {
   if (r.pasos.length) pintarPasos(r.pasos, S.orden.length); else $("labPasos").hidden = true;
   mostrarLista(r.res, `RESULTADOS: ${fmt(r.res.length)} coincidencia(s)`);
   msg(`${ctl.nombre}: ${fmt(r.rev)} revisiones en ${r.ms.toFixed(3)} ms.`);
+}
+
+/* ---------- pestaña: todos los contactos ---------- */
+const POR_PAGINA = 100;
+const T = { pagina: 0 };
+function pintarContactos() {
+  const arr = S.lista, paginas = Math.max(1, Math.ceil(arr.length / POR_PAGINA));
+  T.pagina = Math.min(T.pagina, paginas - 1);
+  const box = $("contactosLista"); box.replaceChildren();
+  for (const c of arr.slice(T.pagina * POR_PAGINA, (T.pagina + 1) * POR_PAGINA)) box.appendChild(filaContacto(c));
+  if (!arr.length) { const p = document.createElement("div"); p.className = "nota"; p.textContent = "La agenda está vacía."; box.appendChild(p); }
+  $("contactosInfo").textContent = `${fmt(arr.length)} contactos · orden de llegada`;
+  $("pagInfo").textContent = `Página ${fmt(T.pagina + 1)} de ${fmt(paginas)}`;
+  $("pagPrev").disabled = T.pagina === 0;
+  $("pagNext").disabled = T.pagina >= paginas - 1;
+}
+function abrirTab(id) {
+  document.querySelectorAll(".tab").forEach(b => {
+    const activa = b.dataset.tab === id;
+    b.classList.toggle("activa", activa); b.setAttribute("aria-selected", activa);
+  });
+  $("tabBusqueda").hidden = id !== "tabBusqueda";
+  $("tabContactos").hidden = id !== "tabContactos";
+  if (id === "tabContactos") pintarContactos();
 }
 
 /* ---------- calendario ---------- */
@@ -671,6 +724,9 @@ $("inBuscar").addEventListener("keydown", e => { if (e.key === "Enter") buscar()
 $("btnDescargar").onclick = descargar;
 document.querySelectorAll(".caso").forEach(b => b.onclick = () => cargarCaso(Number(b.dataset.n)));
 $("btnVaciar").onclick = () => cargarCaso(0);
+document.querySelectorAll(".tab").forEach(b => b.onclick = () => abrirTab(b.dataset.tab));
+$("pagPrev").onclick = () => { T.pagina--; pintarContactos(); };
+$("pagNext").onclick = () => { T.pagina++; pintarContactos(); };
 $("inImportar").onchange = importar;
 $("btnAbrir").onclick = abrirArchivo;
 $("btnCrear").onclick = crearArchivo;
