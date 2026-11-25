@@ -54,6 +54,7 @@ button:hover,label.btn:hover{filter:brightness(1.2)}
 .tab.activa{background:var(--card);color:var(--txt)}
 .contactos-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:12px;color:var(--mut)}
 .pag{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:8px;font-size:12px;color:var(--mut)}
+.orden.activo{background:var(--indb)}
 button:disabled{opacity:.4;cursor:default;filter:none}
 .encabezado{font-size:11px;font-weight:700;color:#64748b;margin:4px 6px 6px}
 .contacto{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--card);border-radius:6px;padding:6px 10px;margin:3px 0;font-size:12px}
@@ -178,6 +179,11 @@ button:disabled{opacity:.4;cursor:default;filter:none}
     <div id="tabContactos" hidden>
       <div class="contactos-top">
         <span id="contactosInfo"></span>
+        <div class="fila-btn">
+          <button class="orden activo" data-orden="LLEGADA">Llegada</button>
+          <button class="orden" data-orden="AZ">A → Z</button>
+          <button class="orden" data-orden="ZA">Z → A</button>
+        </div>
       </div>
       <div id="contactosLista"></div>
       <div class="pag">
@@ -536,14 +542,24 @@ function buscar() {
 
 /* ---------- pestaña: todos los contactos ---------- */
 const POR_PAGINA = 100;
-const T = { pagina: 0 };
+const T = { pagina: 0, orden: "LLEGADA" };
+function paginaContactos(inicio, fin) {
+  if (T.orden === "LLEGADA") return S.lista.slice(inicio, fin);
+  asegurarOrden();
+  if (T.orden === "AZ") return S.orden.slice(inicio, fin);
+  const n = S.orden.length, res = [];
+  for (let i = n - 1 - inicio; i >= Math.max(0, n - fin); i--) res.push(S.orden[i]);
+  return res;
+}
+const TEXTO_ORDEN = { LLEGADA: "orden de llegada", AZ: "A → Z", ZA: "Z → A" };
 function pintarContactos() {
-  const arr = S.lista, paginas = Math.max(1, Math.ceil(arr.length / POR_PAGINA));
+  const total = S.lista.length, paginas = Math.max(1, Math.ceil(total / POR_PAGINA));
   T.pagina = Math.min(T.pagina, paginas - 1);
   const box = $("contactosLista"); box.replaceChildren();
-  for (const c of arr.slice(T.pagina * POR_PAGINA, (T.pagina + 1) * POR_PAGINA)) box.appendChild(filaContacto(c));
-  if (!arr.length) { const p = document.createElement("div"); p.className = "nota"; p.textContent = "La agenda está vacía."; box.appendChild(p); }
-  $("contactosInfo").textContent = `${fmt(arr.length)} contactos · orden de llegada`;
+  for (const c of paginaContactos(T.pagina * POR_PAGINA, (T.pagina + 1) * POR_PAGINA)) box.appendChild(filaContacto(c));
+  if (!total) { const p = document.createElement("div"); p.className = "nota"; p.textContent = "La agenda está vacía."; box.appendChild(p); }
+  $("contactosInfo").textContent = `${fmt(total)} contactos · ${TEXTO_ORDEN[T.orden]}` +
+    (T.orden === "LLEGADA" ? "" : ` (Merge Sort: ${S.sortMs.toFixed(1)} ms)`);
   $("pagInfo").textContent = `Página ${fmt(T.pagina + 1)} de ${fmt(paginas)}`;
   $("pagPrev").disabled = T.pagina === 0;
   $("pagNext").disabled = T.pagina >= paginas - 1;
@@ -725,6 +741,11 @@ $("btnDescargar").onclick = descargar;
 document.querySelectorAll(".caso").forEach(b => b.onclick = () => cargarCaso(Number(b.dataset.n)));
 $("btnVaciar").onclick = () => cargarCaso(0);
 document.querySelectorAll(".tab").forEach(b => b.onclick = () => abrirTab(b.dataset.tab));
+document.querySelectorAll(".orden").forEach(b => b.onclick = () => {
+  T.orden = b.dataset.orden; T.pagina = 0;
+  document.querySelectorAll(".orden").forEach(x => x.classList.toggle("activo", x === b));
+  pintarContactos();
+});
 $("pagPrev").onclick = () => { T.pagina--; pintarContactos(); };
 $("pagNext").onclick = () => { T.pagina++; pintarContactos(); };
 $("inImportar").onchange = importar;
