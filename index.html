@@ -608,6 +608,60 @@ async function borrarNota(n) {
   msg("Nota borrada.");
 }
 
+/* ---------- pruebas de casos borde (Divide y Vencerás) ---------- */
+function pruebasDyV() {
+  const respaldo = { lista: S.lista, orden: S.orden, sucio: S.sucio, tels: S.tels, sortComps: S.sortComps, sortMs: S.sortMs };
+  const resultados = [];
+  const caso = (nombre, ok) => resultados.push({ caso: nombre, resultado: ok ? "OK" : "FALLA" });
+  const cargar = nombres => {
+    S.lista = nombres.map((n, i) => crear(n, String(i), "", "")); S.tels = new Set(); S.sucio = true;
+    asegurarOrden();
+  };
+  const cuantos = q => busquedaBinaria(norm(q)).res.length;
+  const ordenado = () => S.orden.every((c, i) => i === 0 || S.orden[i - 1].key <= c.key);
+  const igualQueSecuencial = q => {
+    const sec = new Set(busquedaSecuencial(q).res), bin = busquedaBinaria(q).res;
+    return sec.size === bin.length && bin.every(c => sec.has(c));
+  };
+  try {
+    cargar([]);
+    caso("Agenda vacía", cuantos("ana") === 0);
+    cargar(["Ana"]);
+    caso("Un solo contacto (sí está)", cuantos("an") === 1);
+    caso("Un solo contacto (no está)", cuantos("zz") === 0);
+    cargar(["Luis", "Ana", "Beto"]);
+    caso("Prefijo menor que el primero", cuantos("aa") === 0);
+    caso("Prefijo mayor que el último", cuantos("zzz") === 0);
+    caso("Prefijo más largo que los nombres", cuantos("luis fernando") === 0);
+    cargar(["Ana", "Ana", "Ana", "Ana"]);
+    caso("Todos los nombres iguales", cuantos("ana") === 4);
+    cargar(["Ángel Núñez", "angel nunez", "ÁNGEL"]);
+    caso("Acentos y mayúsculas", cuantos("Angel") === 3);
+    cargar(["Ana", "Beto", "Ana"]);
+    caso("Merge Sort es estable (iguales en orden de llegada)", S.orden[0].tel === "0" && S.orden[1].tel === "2");
+    cargar(["Carlos", "Ana", "Ernesto"]);
+    for (const n of ["Aarón", "Zoe", "Diana", "Ana"]) agregar([crear(n, "x" + n, "", "")]);
+    caso("Insertar al inicio, en medio y al final", ordenado() && S.orden[0].nombre === "Aarón" && S.orden.at(-1).nombre === "Zoe");
+    caso("Nombre repetido queda después de los iguales", S.orden[1].tel === "1" && S.orden[2].tel === "xAna");
+    cargar(generarCasos(2000, 99).map(c => c.nombre));
+    caso("Merge Sort deja 2,000 contactos ordenados", ordenado());
+    const r = azar(7); let iguales = true;
+    for (let k = 0; k < 200; k++) {
+      const key = S.lista[Math.floor(r() * S.lista.length)].key;
+      iguales = iguales && igualQueSecuencial(key.slice(0, 1 + Math.floor(r() * key.length)));
+    }
+    caso("200 búsquedas al azar = mismos resultados que la secuencial", iguales);
+    const pasos = posicionInferior(S.orden, "m", null).rev, cota = Math.ceil(Math.log2(S.orden.length + 1));
+    caso(`La binaria usa a lo más ⌈log₂(n+1)⌉ pasos (${pasos} ≤ ${cota})`, pasos <= cota);
+  } finally {
+    Object.assign(S, respaldo); S.cumplesOk = false;
+    pintarModo(); refrescar();
+  }
+  console.table(resultados);
+  const ok = resultados.filter(x => x.resultado === "OK").length;
+  return `${ok} de ${resultados.length} casos OK`;
+}
+
 /* ---------- eventos ---------- */
 $("btnBase").onclick = () => cambiarModo("BASE");
 $("btnDyv").onclick = () => cambiarModo("DYV");

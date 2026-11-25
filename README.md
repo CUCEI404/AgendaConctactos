@@ -93,3 +93,4 @@ Al tratarse de una aplicación web estática sin dependencias externas ni servic
 2. Abra el archivo `index.html` en un navegador web moderno (se recomienda **Google Chrome** o **Microsoft Edge** para habilitar la escritura directa en archivos locales).
 3. Utilice el panel izquierdo para vincular (`Abrir contactos.txt` / `Crear contactos.txt`) o importar un archivo `.txt` con lotes de prueba.
 4. Alterne entre **Modo Base O(n)** y **Divide y Vencerás** en el encabezado para comparar las revisiones y el tiempo de cada búsqueda.
+5. Para correr las pruebas de casos borde de Divide y Vencerás, abra la consola del navegador (F12) y ejecute `pruebasDyV()`.
