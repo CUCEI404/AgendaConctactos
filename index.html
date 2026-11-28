@@ -13,8 +13,8 @@ h1{margin:0;font-size:20px;color:var(--ind)}
 header p{margin:2px 0 0;font-size:12px;color:var(--mut)}
 h2{margin:0 0 10px;font-size:15px}
 h3{margin:0 0 8px;font-size:13px;color:var(--mut)}
-nav.tabs{display:flex;gap:8px}
-nav.tabs button{background:var(--panel);border:1px solid #334155;color:var(--mut);font-weight:500}
+nav.tabs{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+nav.tabs button{background:var(--panel);border:1px solid #334155;color:var(--mut);font-weight:500;border-radius:8px;padding:9px 14px;font-size:13px}
 nav.tabs button.activo{background:var(--indb);border-color:var(--ind);color:#fff}
 main{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:0 24px 24px;align-items:start}
 @media(max-width:820px){main{grid-template-columns:1fr}}
@@ -25,7 +25,7 @@ input:focus{outline:2px solid var(--indb);border-color:transparent}
 .lbl{display:block;font-size:11px;color:var(--mut);margin:2px 0 3px}
 button,label.btn{border:0;border-radius:8px;padding:9px 14px;color:#fff;background:var(--card);cursor:pointer;font-size:13px;display:inline-block;transition:filter .15s}
 button:hover,label.btn:hover{filter:brightness(1.2)}
-button:disabled{opacity:.5;cursor:not-allowed}
+button:disabled{opacity:.45;cursor:not-allowed;filter:none}
 .primario{background:var(--indb);flex:1}
 .verde{background:var(--green)}
 .ambar{background:var(--amber)}
@@ -39,15 +39,42 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .busq{display:flex;gap:8px;margin-bottom:10px}
 .busq input{margin:0;flex:1}
 .resumen-bar{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--mut);margin-bottom:10px;padding:8px 12px;background:var(--card);border-radius:8px}
-.lista-contactos{display:flex;flex-direction:column;gap:8px;max-height:68vh;overflow-y:auto;padding-right:2px}
+.lista-contactos{display:flex;flex-direction:column;gap:8px;max-height:64vh;overflow-y:auto;padding-right:2px}
+.letra-sep{font-size:11px;font-weight:700;color:var(--ind);background:#0b1220;border:1px solid #1e293b;border-radius:6px;padding:4px 10px;margin-top:4px;letter-spacing:.06em}
 .item{background:var(--card);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid transparent}
 .item:hover{border-color:#334155}
 .item-info{min-width:0}
 .item-nom{font-weight:600;font-size:14px;color:var(--txt);margin-bottom:3px}
 .item-det{font-size:12px;color:var(--mut);display:flex;flex-wrap:wrap;gap:10px}
-.item-acc{display:flex;gap:6px;flex-shrink:0}
+.item-acc{display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.pag-bar{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:12px;font-size:12px;color:var(--mut)}
 .vacio{text-align:center;color:var(--mut);font-size:13px;padding:28px 12px;background:#0b1220;border-radius:10px}
 .nota{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.5}
+
+/* Estilos del Calendario */
+.cal-top{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:8px}
+.cal-top b{font-size:13px;text-transform:capitalize;flex:1;text-align:center}
+.cal-top button{padding:4px 10px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.dow{font-size:10px;color:var(--mut);padding-bottom:2px}
+.dia{position:relative;background:var(--card);border-radius:6px;padding:7px 0 9px;font-size:12px;cursor:pointer;border:1px solid transparent;user-select:none}
+.dia:hover{filter:brightness(1.25)}
+.dia.vacio{background:transparent;cursor:default}
+.dia.hoy{border-color:var(--ind)}
+.dia.sel{background:var(--indb)}
+.pt{position:absolute;bottom:3px;left:0;right:0;display:flex;justify-content:center;gap:3px}
+.pt i{width:4px;height:4px;border-radius:50%;display:block}
+.pt .cum{background:#f472b6}
+.pt .not{background:#fbbf24}
+.det-titulo{font-size:12px;font-weight:700;margin:12px 0 6px;text-transform:capitalize}
+.cal-item{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--card);border-radius:6px;padding:6px 8px;margin:4px 0;font-size:12px;word-break:break-word}
+.cal-item button{padding:2px 8px;background:#334155;font-size:11px}
+.cal-item.clic{cursor:pointer}
+.cal-item.clic:hover{filter:brightness(1.2)}
+.nota-item{display:flex;align-items:center;gap:6px;flex:1;min-width:0}
+.nota-hecha{text-decoration:line-through;opacity:.55}
+.badge-dias{font-size:11px;color:var(--ind);font-weight:600;white-space:nowrap}
+.cal-leyenda{font-size:11px;color:var(--mut);margin-top:6px}
 
 /* Estilos de la Página de Métricas */
 .metricas-wrap{padding:0 24px 32px;display:flex;flex-direction:column;gap:20px}
@@ -125,15 +152,34 @@ tr:hover td{background:rgba(30,41,59,.45)}
 
     <section class="panel">
       <h2>Archivo vinculado (contactos.txt)</h2>
-      <div id="archivoInfo">Sin archivo vinculado (modo memoria local).</div>
+      <div id="archivoInfo">Sin archivo vinculado (guardado automático en navegador).</div>
       <div class="fila-btn">
         <button type="button" class="verde" id="btnAbrirTxt">Abrir contactos.txt</button>
-        <button type="button" id="btnCrearTxt">Crear contactos.txt</button>
+        <button type="button" class="verde" id="btnCrearTxt">Crear contactos.txt</button>
         <label class="btn" for="inputImportar">Importar .txt</label>
         <input type="file" id="inputImportar" accept=".txt" hidden>
         <button type="button" id="btnDescargarTxt">Descargar .txt</button>
       </div>
       <p class="nota">Cada alta, edición o eliminación actualiza automáticamente el archivo vinculado si tu navegador soporta edición directa.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Calendario</h2>
+      <div class="cal-top">
+        <button type="button" id="calPrev" aria-label="Mes anterior">‹</button>
+        <b id="calTitulo"></b>
+        <button type="button" id="calHoy" class="btn-sm" title="Ir al día de hoy">Hoy</button>
+        <button type="button" id="calNext" aria-label="Mes siguiente">›</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-leyenda">🟣 cumpleaños   🟡 nota o recordatorio</div>
+      <div id="calDetalle"></div>
+      <div class="busq" style="margin-top:8px">
+        <input type="text" id="inNota" maxlength="120" placeholder="Nota o recordatorio para el día elegido...">
+        <button type="button" id="btnNota" class="verde">+ Nota</button>
+      </div>
+      <h3 style="margin-top:14px">Próximos 30 días</h3>
+      <div id="calProx"></div>
     </section>
   </div>
 
@@ -151,6 +197,12 @@ tr:hover td{background:rgba(30,41,59,.45)}
       </div>
 
       <div id="listaRender" class="lista-contactos"></div>
+
+      <div class="pag-bar" id="pagBar" hidden>
+        <button type="button" class="btn-sm" id="pagPrev">‹ Anterior</button>
+        <span id="pagInfo">Página 1 de 1</span>
+        <button type="button" class="btn-sm" id="pagNext">Siguiente ›</button>
+      </div>
     </section>
   </div>
 </main>
@@ -262,7 +314,8 @@ const S = {
   telefonos: new Set(),
   cumpleanos: new Map(),
   notas: [],
-  fileHandle: null
+  fileHandle: null,
+  paginaActual: 0
 };
 
 window.MetricasAgenda = {
@@ -274,6 +327,7 @@ window.MetricasAgenda = {
 };
 
 const MAX_NODOS_DOM = 100;
+const STORAGE_KEY = "agenda_algoritmica_404_v1";
 
 // ============================================================================
 // UTILIDADES DE NORMALIZACIÓN Y ALGORITMOS CORE
@@ -293,6 +347,18 @@ function limpiarDigitos(tel) {
 function claveCumple(fechaISO) {
   if (!fechaISO || fechaISO.length < 10) return null;
   return fechaISO.slice(5, 10);
+}
+
+async function copiarDato(texto, etiqueta, boton) {
+  try {
+    await navigator.clipboard.writeText(texto);
+    const prev = boton.textContent;
+    boton.textContent = "✓ Copiado";
+    mostrarEstado(`${etiqueta} copiado: ${texto}`);
+    setTimeout(() => { boton.textContent = prev; }, 1400);
+  } catch {
+    mostrarEstado("No se pudo copiar al portapapeles.", true);
+  }
 }
 
 function mergeSort(arr, stats = { comp: 0 }) {
@@ -419,6 +485,7 @@ async function guardarContacto(datos, telefonoOriginal = "") {
   await sincronizarArchivoVinculado();
   actualizarTelemetriaDOM();
   ejecutarBusquedaInstantanea();
+  pintarCalendario();
 }
 
 async function eliminarContacto(telefonoLimpio) {
@@ -438,11 +505,12 @@ async function eliminarContacto(telefonoLimpio) {
   await sincronizarArchivoVinculado();
   actualizarTelemetriaDOM();
   ejecutarBusquedaInstantanea();
+  pintarCalendario();
   mostrarEstado(`Contacto "${contacto.nombre}" eliminado.`);
 }
 
 // ============================================================================
-// BÚSQUEDA INSTANTÁNEA EN AGENDA
+// BÚSQUEDA INSTANTÁNEA EN AGENDA Y DIRECTORIO A–Z PAGINADO
 // ============================================================================
 function ejecutarBusquedaInstantanea() {
   const raw = document.getElementById("buscador").value;
@@ -455,11 +523,13 @@ function ejecutarBusquedaInstantanea() {
   const t0 = performance.now();
   const stats = { comp: 0 };
   let resultados = [];
+  let agruparPorLetra = true;
 
   if (!query) {
     resultados = S.orden;
     modoFiltro.textContent = "Orden alfabético (A–Z)";
   } else if (/^\d[\d\s\-()]*$/.test(query)) {
+    agruparPorLetra = false;
     const digitosBuscados = limpiarDigitos(query);
     for (let i = 0; i < S.orden.length; i++) {
       stats.comp++;
@@ -488,19 +558,35 @@ function ejecutarBusquedaInstantanea() {
   window.MetricasAgenda.comparacionesBusqueda = stats.comp;
 
   actualizarTelemetriaDOM();
-  renderizarLista(resultados);
+  renderizarLista(resultados, agruparPorLetra);
 }
 
-function renderizarLista(lista) {
+function renderizarLista(lista, agruparPorLetra = true) {
   const contenedor = document.getElementById("listaRender");
   const contador = document.getElementById("contadorVisible");
+  const pagBar = document.getElementById("pagBar");
 
   const total = lista.length;
-  const visibles = lista.slice(0, MAX_NODOS_DOM);
+  const totalPaginas = Math.max(1, Math.ceil(total / MAX_NODOS_DOM));
+  if (S.paginaActual >= totalPaginas) S.paginaActual = totalPaginas - 1;
+  if (S.paginaActual < 0) S.paginaActual = 0;
+
+  const inicio = S.paginaActual * MAX_NODOS_DOM;
+  const visibles = lista.slice(inicio, inicio + MAX_NODOS_DOM);
 
   contador.textContent = total === 1
     ? "1 contacto encontrado"
-    : `${total.toLocaleString("es-MX")} contactos${total > MAX_NODOS_DOM ? ` (mostrando primeros ${MAX_NODOS_DOM})` : ""}`;
+    : `${total.toLocaleString("es-MX")} contactos`;
+
+  if (total > MAX_NODOS_DOM) {
+    pagBar.hidden = false;
+    document.getElementById("pagInfo").textContent =
+      `Página ${(S.paginaActual + 1).toLocaleString("es-MX")} de ${totalPaginas.toLocaleString("es-MX")}`;
+    document.getElementById("pagPrev").disabled = S.paginaActual === 0;
+    document.getElementById("pagNext").disabled = S.paginaActual >= totalPaginas - 1;
+  } else {
+    pagBar.hidden = true;
+  }
 
   if (total === 0) {
     contenedor.innerHTML = `<div class="vacio">No hay contactos que coincidan con la búsqueda.</div>`;
@@ -508,7 +594,21 @@ function renderizarLista(lista) {
   }
 
   const frag = document.createDocumentFragment();
+  let letraActual = "";
+
   for (const c of visibles) {
+    if (agruparPorLetra) {
+      const inicial = (c._clave[0] || "#").toUpperCase();
+      const letra = /[A-Z]/.test(inicial) ? inicial : "#";
+      if (letra !== letraActual) {
+        letraActual = letra;
+        const sep = document.createElement("div");
+        sep.className = "letra-sep";
+        sep.textContent = letraActual;
+        frag.appendChild(sep);
+      }
+    }
+
     const card = document.createElement("div");
     card.className = "item";
 
@@ -532,6 +632,22 @@ function renderizarLista(lista) {
     const acc = document.createElement("div");
     acc.className = "item-acc";
 
+    const btnCopiarTel = document.createElement("button");
+    btnCopiarTel.type = "button";
+    btnCopiarTel.className = "btn-sm";
+    btnCopiarTel.textContent = "Copiar tel";
+    btnCopiarTel.addEventListener("click", () => copiarDato(c.telefono, "Teléfono", btnCopiarTel));
+    acc.appendChild(btnCopiarTel);
+
+    if (c.correo) {
+      const btnCopiarCor = document.createElement("button");
+      btnCopiarCor.type = "button";
+      btnCopiarCor.className = "btn-sm";
+      btnCopiarCor.textContent = "Copiar correo";
+      btnCopiarCor.addEventListener("click", () => copiarDato(c.correo, "Correo", btnCopiarCor));
+      acc.appendChild(btnCopiarCor);
+    }
+
     const btnEdit = document.createElement("button");
     btnEdit.type = "button";
     btnEdit.className = "btn-sm ambar";
@@ -543,9 +659,18 @@ function renderizarLista(lista) {
     btnDel.className = "btn-sm rojo";
     btnDel.textContent = "Eliminar";
     btnDel.addEventListener("click", () => {
-      if (confirm(`¿Eliminar a ${c.nombre} (${c.telefono})?`)) {
+      if (btnDel.dataset.confirmando === "1") {
         eliminarContacto(c.telefono);
+        return;
       }
+      btnDel.dataset.confirmando = "1";
+      btnDel.textContent = "¿Confirmar?";
+      setTimeout(() => {
+        if (btnDel.isConnected) {
+          btnDel.dataset.confirmando = "0";
+          btnDel.textContent = "Eliminar";
+        }
+      }, 3000);
     });
 
     acc.append(btnEdit, btnDel);
@@ -559,7 +684,11 @@ function renderizarLista(lista) {
 
 function escapeHTML(str) {
   return str.replace(/[&<>"']/g, m => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    "&": "\x26amp;",
+    "<": "\x26lt;",
+    ">": "\x26gt;",
+    '"': "\x26quot;",
+    "'": "\x26#39;"
   }[m]));
 }
 
@@ -585,13 +714,271 @@ function cancelarEdicion() {
 }
 
 // ============================================================================
-// PERSISTENCIA EN ARCHIVO PLANO (contactos.txt)
+// CALENDARIO, CUMPLEAÑOS O(1) Y NOTAS COMPLETABLES
+// ============================================================================
+const pad2 = n => String(n).padStart(2, "0");
+const isoFecha = (y, m, d) => `${y}-${pad2(m + 1)}-${pad2(d)}`;
+const ES_FECHA_ISO = /^\d{4}-\d{2}-\d{2}$/;
+const esBisiesto = y => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+const hoyISO = () => { const t = new Date(); return isoFecha(t.getFullYear(), t.getMonth(), t.getDate()); };
+const fechaCorta = f => f.split("-").reverse().join("/");
+
+const hoyCal = new Date();
+const CAL = { anio: hoyCal.getFullYear(), mes: hoyCal.getMonth(), sel: hoyISO() };
+
+function cumplesDelDia(y, m, d) {
+  let r = S.cumpleanos.get(`${pad2(m + 1)}-${pad2(d)}`) || [];
+  if (m === 1 && d === 28 && !esBisiesto(y)) {
+    r = r.concat(S.cumpleanos.get("02-29") || []);
+  }
+  return r;
+}
+
+function mapaNotasPorFecha() {
+  const mp = new Map();
+  for (const n of S.notas) {
+    if (!mp.has(n.fecha)) mp.set(n.fecha, []);
+    mp.get(n.fecha).push(n);
+  }
+  return mp;
+}
+
+function textoContadorDias(dias) {
+  if (dias === 0) return "Hoy";
+  if (dias === 1) return "En 1 día";
+  return `En ${dias} días`;
+}
+
+function pintarCalendario() {
+  const grid = document.getElementById("calGrid");
+  if (!grid) return;
+  grid.replaceChildren();
+
+  ["D", "L", "M", "M", "J", "V", "S"].forEach(letra => {
+    const d = document.createElement("div");
+    d.className = "dow";
+    d.textContent = letra;
+    grid.appendChild(d);
+  });
+
+  document.getElementById("calTitulo").textContent =
+    new Date(CAL.anio, CAL.mes, 1).toLocaleDateString("es-MX", { month: "long", year: "numeric" });
+
+  const primerDia = new Date(CAL.anio, CAL.mes, 1).getDay();
+  const totalDias = new Date(CAL.anio, CAL.mes + 1, 0).getDate();
+  const hoy = hoyISO();
+  const notasMap = mapaNotasPorFecha();
+
+  for (let i = 0; i < primerDia; i++) {
+    const v = document.createElement("div");
+    v.className = "dia vacio";
+    grid.appendChild(v);
+  }
+
+  for (let d = 1; d <= totalDias; d++) {
+    const f = isoFecha(CAL.anio, CAL.mes, d);
+    const el = document.createElement("div");
+    el.className = "dia" + (f === hoy ? " hoy" : "") + (f === CAL.sel ? " sel" : "");
+    el.textContent = d;
+
+    const hayCumple = cumplesDelDia(CAL.anio, CAL.mes, d).length > 0;
+    const hayNota = notasMap.has(f);
+    if (hayCumple || hayNota) {
+      const pt = document.createElement("div");
+      pt.className = "pt";
+      if (hayCumple) { const i = document.createElement("i"); i.className = "cum"; pt.appendChild(i); }
+      if (hayNota) { const i = document.createElement("i"); i.className = "not"; pt.appendChild(i); }
+      el.appendChild(pt);
+    }
+
+    el.addEventListener("click", () => { CAL.sel = f; pintarCalendario(); });
+    grid.appendChild(el);
+  }
+
+  pintarDetalleDia(notasMap);
+  pintarProximosEventos(notasMap);
+}
+
+function pintarDetalleDia(notasMap) {
+  const box = document.getElementById("calDetalle");
+  box.replaceChildren();
+
+  const [y, m, d] = CAL.sel.split("-").map(Number);
+  const titulo = document.createElement("div");
+  titulo.className = "det-titulo";
+  titulo.textContent = new Date(y, m - 1, d).toLocaleDateString("es-MX", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric"
+  });
+  box.appendChild(titulo);
+
+  const cumples = cumplesDelDia(y, m - 1, d);
+  const notas = notasMap.get(CAL.sel) || [];
+
+  cumples.slice(0, 5).forEach(c => {
+    const edad = y - Number(c.nacimiento.slice(0, 4));
+    const it = document.createElement("div");
+    it.className = "cal-item";
+    it.textContent = `🎂 ${c.nombre} cumple ${edad} año${edad === 1 ? "" : "s"}`;
+    box.appendChild(it);
+  });
+
+  if (cumples.length > 5) {
+    const it = document.createElement("div");
+    it.className = "cal-item";
+    it.textContent = `...y ${cumples.length - 5} cumpleaños más`;
+    box.appendChild(it);
+  }
+
+  notas.forEach(n => {
+    const it = document.createElement("div");
+    it.className = "cal-item";
+
+    const cont = document.createElement("div");
+    cont.className = "nota-item";
+
+    const btnCheck = document.createElement("button");
+    btnCheck.type = "button";
+    btnCheck.textContent = n.hecha ? "✓" : "○";
+    btnCheck.title = n.hecha ? "Marcar como pendiente" : "Marcar como completada";
+    btnCheck.addEventListener("click", () => toggleNota(n));
+
+    const spanTxt = document.createElement("span");
+    spanTxt.className = n.hecha ? "nota-hecha" : "";
+    spanTxt.textContent = (n.hecha ? "☑️ " : "📝 ") + n.texto;
+    cont.append(btnCheck, spanTxt);
+
+    const btnDel = document.createElement("button");
+    btnDel.type = "button";
+    btnDel.textContent = "✕";
+    btnDel.title = "Borrar nota";
+    btnDel.addEventListener("click", () => borrarNota(n));
+
+    it.append(cont, btnDel);
+    box.appendChild(it);
+  });
+
+  if (!cumples.length && !notas.length) {
+    const p = document.createElement("div");
+    p.className = "nota";
+    p.textContent = "Sin eventos este día.";
+    box.appendChild(p);
+  }
+}
+
+function pintarProximosEventos(notasMap) {
+  const box = document.getElementById("calProx");
+  box.replaceChildren();
+
+  const base = new Date();
+  let lineas = 0;
+  let total = 0;
+
+  for (let i = 0; i < 30; i++) {
+    const dt = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
+    const y = dt.getFullYear(), m = dt.getMonth(), d = dt.getDate();
+    const f = isoFecha(y, m, d);
+    const items = [];
+
+    const cumples = cumplesDelDia(y, m, d);
+    cumples.slice(0, 3).forEach(c => {
+      const edad = y - Number(c.nacimiento.slice(0, 4));
+      items.push({ txt: `🎂 ${c.nombre} cumple ${edad} año${edad === 1 ? "" : "s"}`, badge: textoContadorDias(i), hecha: false });
+    });
+    if (cumples.length > 3) {
+      items.push({ txt: `🎂 +${cumples.length - 3} cumpleaños más`, badge: textoContadorDias(i), hecha: false });
+    }
+
+    (notasMap.get(f) || []).forEach(n => {
+      items.push({
+        txt: (n.hecha ? "☑️ " : "📝 ") + n.texto,
+        badge: n.hecha ? "Completada" : textoContadorDias(i),
+        hecha: n.hecha
+      });
+    });
+
+    for (const ev of items) {
+      total++;
+      if (lineas >= 15) continue;
+      lineas++;
+
+      const it = document.createElement("div");
+      it.className = "cal-item clic";
+      const etiqueta = i === 0 ? "Hoy" : i === 1 ? "Mañana" : dt.toLocaleDateString("es-MX", { weekday: "short", day: "numeric", month: "short" });
+
+      const izq = document.createElement("span");
+      if (ev.hecha) izq.className = "nota-hecha";
+      izq.textContent = `${etiqueta}: ${ev.txt}`;
+
+      const der = document.createElement("span");
+      der.className = "badge-dias";
+      der.textContent = ev.badge;
+
+      it.append(izq, der);
+      it.addEventListener("click", () => { CAL.anio = y; CAL.mes = m; CAL.sel = f; pintarCalendario(); });
+      box.appendChild(it);
+    }
+  }
+
+  if (!total) {
+    const p = document.createElement("div");
+    p.className = "nota";
+    p.textContent = "Nada programado en los próximos 30 días.";
+    box.appendChild(p);
+  } else if (total > lineas) {
+    const p = document.createElement("div");
+    p.className = "nota";
+    p.textContent = `...y ${total - lineas} más.`;
+    box.appendChild(p);
+  }
+}
+
+async function agregarNota() {
+  const input = document.getElementById("inNota");
+  const texto = input.value.replace(/[|\r\n]+/g, " ").trim();
+  if (!texto) {
+    mostrarEstado("Escribe el texto de la nota.", true);
+    return;
+  }
+  S.notas.push({ fecha: CAL.sel, hecha: false, texto });
+  input.value = "";
+  await sincronizarArchivoVinculado();
+  pintarCalendario();
+  mostrarEstado(`Nota guardada para ${fechaCorta(CAL.sel)}.`);
+}
+
+async function toggleNota(nota) {
+  nota.hecha = !nota.hecha;
+  await sincronizarArchivoVinculado();
+  pintarCalendario();
+  mostrarEstado(nota.hecha ? "Nota marcada como completada." : "Nota marcada como pendiente.");
+}
+
+async function borrarNota(nota) {
+  S.notas = S.notas.filter(x => x !== nota);
+  await sincronizarArchivoVinculado();
+  pintarCalendario();
+  mostrarEstado("Nota borrada.");
+}
+
+// ============================================================================
+// PERSISTENCIA EN ARCHIVO PLANO (contactos.txt) Y RESPALDO LOCAL
 // ============================================================================
 function serializarContenidoTxt() {
   const lineasContactos = S.orden.map(c =>
     [c.nombre, c.telefono, c.correo || "", c.nacimiento || ""].join("|")
   );
-  return [...lineasContactos, ...S.notas].join("\n") + (lineasContactos.length || S.notas.length ? "\n" : "");
+  const lineasNotas = S.notas.map(n =>
+    `#NOTA|${n.fecha}|${n.hecha ? "1" : "0"}|${n.texto}`
+  );
+  return [...lineasContactos, ...lineasNotas].join("\n") + (lineasContactos.length || lineasNotas.length ? "\n" : "");
+}
+
+function guardarRespaldoLocal() {
+  try {
+    if (S.lista.length <= 5000) {
+      localStorage.setItem(STORAGE_KEY, serializarContenidoTxt());
+    }
+  } catch {}
 }
 
 function cargarDesdeTexto(contenido) {
@@ -605,7 +992,18 @@ function cargarDesdeTexto(contenido) {
     const l = linea.trim();
     if (!l) continue;
     if (l.startsWith("#NOTA|")) {
-      nuevasNotas.push(l);
+      const p = l.split("|");
+      if (ES_FECHA_ISO.test(p[1] || "") && p[2]) {
+        const tieneEstado = p[2] === "0" || p[2] === "1";
+        const textoNota = (tieneEstado ? p.slice(3) : p.slice(2)).join(" ").trim();
+        if (textoNota) {
+          nuevasNotas.push({
+            fecha: p[1],
+            hecha: tieneEstado ? p[2] === "1" : false,
+            texto: textoNota
+          });
+        }
+      }
       continue;
     }
     const [nombre = "", telRaw = "", correo = "", nacimiento = ""] = l.split("|");
@@ -636,16 +1034,20 @@ function cargarDesdeTexto(contenido) {
   S.telefonos = setTel;
   S.cumpleanos = mapCumple;
   S.notas = nuevasNotas;
+  S.paginaActual = 0;
   const t1 = performance.now();
 
   window.MetricasAgenda.ultimoOrdenamientoMs = +(t1 - t0).toFixed(4);
   window.MetricasAgenda.comparacionesOrdenamiento = statsOrden.comp;
 
+  guardarRespaldoLocal();
   actualizarTelemetriaDOM();
   ejecutarBusquedaInstantanea();
+  pintarCalendario();
 }
 
 async function sincronizarArchivoVinculado() {
+  guardarRespaldoLocal();
   if (!S.fileHandle) return;
   try {
     const writable = await S.fileHandle.createWritable();
@@ -673,7 +1075,6 @@ function generarRegistrosSinteticos(n) {
   const arr = new Array(n);
 
   for (let i = 0; i < n; i++) {
-    // Mezcla determinista para simular entrada desordenada realista
     const salto = (i * 7919) % n;
     const nom = `${nombres[salto % nombres.length]} ${apellidos[(salto * 3) % apellidos.length]} ${salto + 1}`;
     const tel = String(3300000000 + i);
@@ -694,12 +1095,10 @@ function ejecutarBenchmarkCompleto() {
 
   for (const n of tamanos) {
     const dataset = generarRegistrosSinteticos(n);
-    // Objetivo ubicado en el último tercio para reflejar caso promedio-alto realista
     const objetivo = dataset[Math.floor(n * 0.85)];
     const claveBuscada = objetivo._clave;
     const telBuscado = objetivo.telefono;
 
-    // 1. BÚSQUEDA SECUENCIAL O(n) — Promedio de 20 ejecuciones para precisión sub-milisegundo
     const iterSeq = n <= 10000 ? 30 : 10;
     let compSeq = 0;
     const tSeq0 = performance.now();
@@ -712,13 +1111,11 @@ function ejecutarBenchmarkCompleto() {
     }
     const tiempoSeqMs = (performance.now() - tSeq0) / iterSeq;
 
-    // 2. MERGE SORT O(n log n)
     const statsSort = { comp: 0 };
     const tSort0 = performance.now();
     const ordenado = mergeSort(dataset, statsSort);
     const tiempoSortMs = performance.now() - tSort0;
 
-    // 3. BÚSQUEDA BINARIA (Lower Bound) O(log n) — Promedio de 500 ejecuciones
     const iterBin = 500;
     let compBin = 0;
     const tBin0 = performance.now();
@@ -732,7 +1129,6 @@ function ejecutarBenchmarkCompleto() {
     }
     const tiempoBinMs = (performance.now() - tBin0) / iterBin;
 
-    // 4. INDEXACIÓN HASH (Map / Set) O(1)
     const tHashBuild0 = performance.now();
     const mapaHash = new Map();
     for (let i = 0; i < dataset.length; i++) {
@@ -747,8 +1143,6 @@ function ejecutarBenchmarkCompleto() {
     }
     const tiempoHashGetMs = (performance.now() - tHashGet0) / iterHash;
 
-    // 5. PUNTO DE EQUILIBRIO (k* consultas):
-    // k * T_seq > T_sort + k * T_bin  =>  k* = ceil(T_sort / (T_seq - T_bin))
     const ahorroPorConsulta = Math.max(tiempoSeqMs - tiempoBinMs, 0.0001);
     const puntoEquilibrioK = Math.ceil(tiempoSortMs / ahorroPorConsulta);
 
@@ -771,7 +1165,7 @@ function ejecutarBenchmarkCompleto() {
   renderizarTablaBenchmark(resultados);
   renderizarResumenEquilibrio(resultados);
   dibujarGraficaComparaciones(resultados);
-  dibujarGraficaEquilibrio(resultados[resultados.length - 1]); // n = 100,000
+  dibujarGraficaEquilibrio(resultados[resultados.length - 1]);
 }
 
 function renderizarTablaBenchmark(resultados) {
@@ -825,15 +1219,13 @@ function dibujarGraficaComparaciones(resultados) {
 
   ctx.clearRect(0, 0, w, h);
 
-  // Escala logarítmica base 10 para visualizar 1, ~18 y 85,000 en la misma gráfica
-  const maxLog = 5; // 10^5 = 100,000
+  const maxLog = 5;
   const yFromVal = v => {
     const lv = Math.log10(Math.max(1, v));
     return pad.top + plotH - (lv / maxLog) * plotH;
   };
   const xFromIdx = i => pad.left + (i / (resultados.length - 1)) * plotW;
 
-  // Rejilla horizontal logarítmica
   ctx.strokeStyle = "#1e293b";
   ctx.fillStyle = "#94a3b8";
   ctx.font = "11px system-ui, sans-serif";
@@ -848,7 +1240,6 @@ function dibujarGraficaComparaciones(resultados) {
     ctx.fillText(val.toLocaleString("es-MX"), pad.left - 8, y + 4);
   }
 
-  // Etiquetas eje X
   ctx.textAlign = "center";
   resultados.forEach((r, i) => {
     const x = xFromIdx(i);
@@ -860,8 +1251,6 @@ function dibujarGraficaComparaciones(resultados) {
     { key: "compBin", color: "#818cf8", label: "Binaria O(log n)" },
     { key: "compHash", color: "#10b981", label: "Hash O(1)" }
   ];
-
-  const puntosHit = [];
 
   for (const s of series) {
     ctx.strokeStyle = s.color;
@@ -882,7 +1271,6 @@ function dibujarGraficaComparaciones(resultados) {
       ctx.beginPath();
       ctx.arc(x, y, 4.5, 0, Math.PI * 2);
       ctx.fill();
-      puntosHit.push({ x, y, r });
     });
   }
 
@@ -931,7 +1319,6 @@ function dibujarGraficaEquilibrio(dato100k) {
   const xFromK = k => pad.left + (k / maxK) * plotW;
   const yFromMs = ms => pad.top + plotH - (ms / maxY) * plotH;
 
-  // Rejilla Y (ms)
   ctx.strokeStyle = "#1e293b";
   ctx.fillStyle = "#94a3b8";
   ctx.font = "11px system-ui, sans-serif";
@@ -947,14 +1334,12 @@ function dibujarGraficaEquilibrio(dato100k) {
     ctx.fillText(`${valMs.toFixed(1)} ms`, pad.left - 8, y + 4);
   }
 
-  // Eje X (número de búsquedas k)
   ctx.textAlign = "center";
   for (let i = 0; i <= 4; i++) {
     const kVal = Math.round((maxK / 4) * i);
     ctx.fillText(`${kVal} cons.`, xFromK(kVal), h - 12);
   }
 
-  // Línea 1: Secuencial acumulada (k * T_seq)
   ctx.strokeStyle = "#ef4444";
   ctx.lineWidth = 2.5;
   ctx.beginPath();
@@ -962,7 +1347,6 @@ function dibujarGraficaEquilibrio(dato100k) {
   ctx.lineTo(xFromK(maxK), yFromMs(costoSeqMax));
   ctx.stroke();
 
-  // Línea 2: Merge Sort + k * Binaria
   ctx.strokeStyle = "#818cf8";
   ctx.lineWidth = 2.5;
   ctx.beginPath();
@@ -970,7 +1354,6 @@ function dibujarGraficaEquilibrio(dato100k) {
   ctx.lineTo(xFromK(maxK), yFromMs(costoDyVMax));
   ctx.stroke();
 
-  // Punto de Equilibrio (k*)
   if (kStar <= maxK) {
     const eqX = xFromK(kStar);
     const eqY = yFromMs(kStar * dato100k.tiempoSeqMs);
@@ -1076,12 +1459,14 @@ document.querySelectorAll("[data-cargar-agenda]").forEach(btn => {
     S.orden = mergeSort(unicos, stats);
     S.telefonos = setTel;
     S.cumpleanos = mapCumple;
+    S.paginaActual = 0;
     window.MetricasAgenda.ultimoOrdenamientoMs = +(performance.now() - t0).toFixed(4);
     window.MetricasAgenda.comparacionesOrdenamiento = stats.comp;
 
     await sincronizarArchivoVinculado();
     actualizarTelemetriaDOM();
     ejecutarBusquedaInstantanea();
+    pintarCalendario();
     tabAgenda.click();
     mostrarEstado(`Se cargaron ${cantidad.toLocaleString("es-MX")} contactos ordenados en la agenda.`);
   });
@@ -1115,13 +1500,50 @@ document.getElementById("btnCancelarEdicion").addEventListener("click", () => {
   mostrarEstado("Edición cancelada.");
 });
 
-document.getElementById("buscador").addEventListener("input", ejecutarBusquedaInstantanea);
+document.getElementById("buscador").addEventListener("input", () => {
+  S.paginaActual = 0;
+  ejecutarBusquedaInstantanea();
+});
 
 document.getElementById("btnLimpiarBusq").addEventListener("click", () => {
   const input = document.getElementById("buscador");
   input.value = "";
+  S.paginaActual = 0;
   input.focus();
   ejecutarBusquedaInstantanea();
+});
+
+document.getElementById("pagPrev").addEventListener("click", () => {
+  S.paginaActual--;
+  ejecutarBusquedaInstantanea();
+});
+
+document.getElementById("pagNext").addEventListener("click", () => {
+  S.paginaActual++;
+  ejecutarBusquedaInstantanea();
+});
+
+document.getElementById("btnNota").addEventListener("click", agregarNota);
+document.getElementById("inNota").addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    agregarNota();
+  }
+});
+document.getElementById("calPrev").addEventListener("click", () => {
+  if (--CAL.mes < 0) { CAL.mes = 11; CAL.anio--; }
+  pintarCalendario();
+});
+document.getElementById("calHoy").addEventListener("click", () => {
+  const ahora = new Date();
+  CAL.anio = ahora.getFullYear();
+  CAL.mes = ahora.getMonth();
+  CAL.sel = hoyISO();
+  pintarCalendario();
+});
+document.getElementById("calNext").addEventListener("click", () => {
+  if (++CAL.mes > 11) { CAL.mes = 0; CAL.anio++; }
+  pintarCalendario();
 });
 
 document.getElementById("btnAbrirTxt").addEventListener("click", async () => {
@@ -1183,10 +1605,15 @@ document.getElementById("btnDescargarTxt").addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 
-// Inicialización con registros base de ejemplo
-cargarDesdeTexto(`Ana García|3310000001|ana.garcia@equipo404.dev|1998-11-28
+// Inicialización desde respaldo local o registros base de ejemplo
+const respaldoGuardado = localStorage.getItem(STORAGE_KEY);
+if (respaldoGuardado && respaldoGuardado.trim()) {
+  cargarDesdeTexto(respaldoGuardado);
+} else {
+  cargarDesdeTexto(`Ana García|3310000001|ana.garcia@equipo404.dev|1998-11-28
 Luis Ortiz|3310000002|luis.ortiz@equipo404.dev|2000-12-05
-#NOTA|2026-11-30|Entregar proyecto de Análisis de Algoritmos`);
+#NOTA|2026-11-30|0|Entregar proyecto de Análisis de Algoritmos`);
+}
 </script>
 </body>
 </html>
