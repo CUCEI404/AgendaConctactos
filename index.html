@@ -22,769 +22,693 @@ input:focus{outline:2px solid var(--indb);border-color:transparent}
 .lbl{display:block;font-size:11px;color:var(--mut);margin:2px 0 3px}
 button,label.btn{border:0;border-radius:8px;padding:9px 14px;color:#fff;background:var(--card);cursor:pointer;font-size:13px;display:inline-block}
 button:hover,label.btn:hover{filter:brightness(1.2)}
-.primario{background:var(--indb);width:100%}
+.primario{background:var(--indb);flex:1}
 .verde{background:var(--green)}
-.modo.base{background:var(--amber)}
-.modo.dyv{background:var(--indb)}
-.selector{text-align:right}
-.selector small{font-size:12px;color:var(--mut);margin-right:4px}
-#modoInfo{font-size:11px;color:var(--mut);margin-top:6px}
-#estado{font-size:12px;color:var(--mut);margin:10px 0;min-height:32px}
+.ambar{background:var(--amber)}
+.rojo{background:var(--red)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.form-acciones{display:flex;gap:8px}
+#estado{font-size:12px;color:var(--mut);margin:10px 0;min-height:20px}
 #estado.error{color:var(--red)}
 .fila-btn{display:flex;flex-wrap:wrap;gap:6px}
 #archivoInfo{font-size:12px;color:var(--mut);margin-bottom:8px;word-break:break-all}
 .busq{display:flex;gap:8px;margin-bottom:10px}
 .busq input{margin:0;flex:1}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
-.stat{background:var(--card);border-radius:8px;text-align:center;padding:6px}
-.stat small{display:block;font-size:11px;color:var(--mut)}
-.stat b{font-size:17px}
-.lotes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center}
-.lotes small{font-size:12px;color:var(--mut);margin-right:4px}
-.lab{background:#0b1220;border:1px solid #1e293b;border-radius:10px;padding:12px;margin-bottom:10px}
-.lab h3{margin:0 0 8px}
+.resumen-bar{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--mut);margin-bottom:10px;padding:8px 12px;background:var(--card);border-radius:8px}
+.lista-contactos{display:flex;flex-direction:column;gap:8px;max-height:68vh;overflow-y:auto;padding-right:2px}
+.item{background:var(--card);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid transparent}
+.item:hover{border-color:#334155}
+.item-info{min-width:0}
+.item-nom{font-weight:600;font-size:14px;color:var(--txt);margin-bottom:3px}
+.item-det{font-size:12px;color:var(--mut);display:flex;flex-wrap:wrap;gap:10px}
+.item-acc{display:flex;gap:6px;flex-shrink:0}
+.vacio{text-align:center;color:var(--mut);font-size:13px;padding:28px 12px;background:#0b1220;border-radius:10px}
 .nota{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.5}
-.paso{font-size:11px;color:var(--mut);margin:6px 0 2px;font-family:ui-monospace,Consolas,monospace}
-.pista{position:relative;height:8px;background:#1e293b;border-radius:4px}
-.pista i{position:absolute;top:0;bottom:0;background:var(--ind);border-radius:4px;min-width:2px}
-#lista,#contactosLista{background:var(--bg);border-radius:10px;padding:8px;max-height:340px;overflow:auto}
-#contactosLista{max-height:520px}
-.tabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:1px solid var(--card)}
-.tab{background:transparent;color:var(--mut);border-radius:8px 8px 0 0}
-.tab.activa{background:var(--card);color:var(--txt)}
-.contactos-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:12px;color:var(--mut)}
-.pag{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:8px;font-size:12px;color:var(--mut)}
-.orden.activo{background:var(--indb)}
-button:disabled{opacity:.4;cursor:default;filter:none}
-.encabezado{font-size:11px;font-weight:700;color:#64748b;margin:4px 6px 6px}
-.contacto{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--card);border-radius:6px;padding:6px 10px;margin:3px 0;font-size:12px}
-.contacto span:last-child{color:var(--mut)}
-/* calendario */
-.cal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.cal-top b{font-size:13px;text-transform:capitalize}
-.cal-top button{padding:4px 12px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
-.dow{font-size:10px;color:var(--mut);padding-bottom:2px}
-.dia{position:relative;background:var(--card);border-radius:6px;padding:7px 0 9px;font-size:12px;cursor:pointer;border:1px solid transparent;user-select:none}
-.dia:hover{filter:brightness(1.25)}
-.dia.vacio{background:transparent;cursor:default}
-.dia.hoy{border-color:var(--ind)}
-.dia.sel{background:var(--indb)}
-.pt{position:absolute;bottom:3px;left:0;right:0;display:flex;justify-content:center;gap:3px}
-.pt i{width:4px;height:4px;border-radius:50%;display:block}
-.pt .cum{background:#f472b6}
-.pt .not{background:#fbbf24}
-.det-titulo{font-size:12px;font-weight:700;margin:12px 0 4px;text-transform:capitalize}
-.item{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--card);border-radius:6px;padding:5px 8px;margin:3px 0;font-size:12px;word-break:break-word}
-.item button{padding:2px 8px;background:#334155}
-.item.clic{cursor:pointer}
-.item.clic:hover{filter:brightness(1.2)}
-.leyenda{font-size:11px;color:var(--mut);margin-top:6px}
+[hidden]{display:none !important}
 </style>
 </head>
 <body>
+
 <header>
   <div>
-    <h1>Agenda Algorítmica — Equipo 404</h1>
-    <p>Comparativa: Búsqueda Secuencial vs. Merge Sort + Búsqueda Binaria</p>
-  </div>
-  <div class="selector" role="group" aria-label="Modo de la agenda">
-    <small>Modo:</small>
-    <button id="btnBase" class="modo base" aria-pressed="true">Modo Base O(n)</button>
-    <button id="btnDyv" class="modo" aria-pressed="false">Divide y Vencerás</button>
-    <div id="modoInfo"></div>
+    <h1>Agenda Algorítmica</h1>
+    <p>Equipo 404 · Indexación ordenada en tiempo real</p>
   </div>
 </header>
 
 <main>
+  <!-- COLUMNA IZQUIERDA: FORMULARIO Y ARCHIVO -->
   <div class="col">
     <section class="panel">
-      <h2>Nuevo Contacto</h2>
-      <form id="form" autocomplete="off">
-        <input type="text" id="inNombre" placeholder="Nombre completo" required>
-        <input type="tel" id="inTel" placeholder="Teléfono (7 a 15 dígitos)" required>
-        <input type="email" id="inCorreo" placeholder="Correo electrónico" required>
-        <label class="lbl" for="inNac">Fecha de nacimiento</label>
-        <input type="date" id="inNac" required>
-        <button class="primario" type="submit">Guardar</button>
-      </form>
-      <div id="estado">Interfaz lista.</div>
+      <h2 id="formTitulo">Nuevo contacto</h2>
+      <form id="formContacto" autocomplete="off">
+        <input type="hidden" id="editTelefonoOriginal" value="">
+        
+        <label class="lbl" for="nombre">Nombre completo *</label>
+        <input type="text" id="nombre" placeholder="Ej. Ana García" required>
 
-      <h3>Archivo contactos.txt</h3>
-      <div id="archivoInfo">Sin vincular: los datos solo viven en memoria.</div>
-      <div class="fila-btn">
-        <button id="btnAbrir">Abrir contactos.txt</button>
-        <button id="btnCrear">Crear contactos.txt</button>
-        <button id="btnDescargar">Descargar .txt</button>
-        <label class="btn">Importar .txt<input type="file" id="inImportar" accept=".txt" hidden></label>
-      </div>
-      <p class="nota">Contactos: <code>nombre|telefono|correo|nacimiento</code><br>Notas: <code>#NOTA|fecha|texto</code></p>
+        <label class="lbl" for="telefono">Teléfono (10 dígitos) *</label>
+        <input type="tel" id="telefono" placeholder="Ej. 3310000001" required>
+
+        <label class="lbl" for="correo">Correo electrónico</label>
+        <input type="email" id="correo" placeholder="ana@correo.com">
+
+        <label class="lbl" for="nacimiento">Fecha de nacimiento</label>
+        <input type="date" id="nacimiento">
+
+        <div class="form-acciones">
+          <button type="submit" class="primario" id="btnGuardar">Guardar contacto</button>
+          <button type="button" id="btnCancelarEdicion" hidden>Cancelar</button>
+        </div>
+      </form>
+      <div id="estado" role="status"></div>
     </section>
 
     <section class="panel">
-      <h2>Calendario</h2>
-      <div class="cal-top">
-        <button id="calPrev" aria-label="Mes anterior">‹</button>
-        <b id="calTitulo"></b>
-        <button id="calNext" aria-label="Mes siguiente">›</button>
+      <h2>Archivo vinculado (contactos.txt)</h2>
+      <div id="archivoInfo">Sin archivo vinculado (modo memoria local).</div>
+      <div class="fila-btn">
+        <button type="button" class="verde" id="btnAbrirTxt">Abrir contactos.txt</button>
+        <button type="button" id="btnCrearTxt">Crear contactos.txt</button>
+        <label class="btn" for="inputImportar">Importar .txt</label>
+        <input type="file" id="inputImportar" accept=".txt" hidden>
+        <button type="button" id="btnDescargarTxt">Descargar .txt</button>
       </div>
-      <div class="cal-grid" id="calGrid"></div>
-      <div class="leyenda">🟣 cumpleaños &nbsp; 🟡 nota o recordatorio</div>
-      <div id="calDetalle"></div>
-      <div class="busq" style="margin-top:8px">
-        <input type="text" id="inNota" maxlength="120" placeholder="Nota o recordatorio para el día elegido...">
-        <button id="btnNota" class="verde">+ Nota</button>
-      </div>
-      <h3>Próximos 30 días</h3>
-      <div id="calProx"></div>
+      <p class="nota">Cada alta, edición o eliminación actualiza automáticamente el archivo vinculado si tu navegador soporta edición directa.</p>
     </section>
   </div>
 
-  <section class="panel">
-    <div class="tabs" role="tablist">
-      <button class="tab activa" data-tab="tabBusqueda" role="tab" aria-selected="true">Búsqueda</button>
-      <button class="tab" data-tab="tabContactos" role="tab" aria-selected="false">Todos los contactos</button>
-    </div>
-
-    <div id="tabBusqueda">
-    <div class="busq">
-      <input type="text" id="inBuscar" placeholder="Buscar por nombre (prefijo)...">
-      <button id="btnBuscar" class="verde">Buscar</button>
-      <button id="btnTodos">Ver todos</button>
-    </div>
-
-    <div class="stats">
-      <div class="stat"><small>Total</small><b id="mTotal">0</b></div>
-      <div class="stat"><small>Revisiones</small><b id="mRev">0</b></div>
-      <div class="stat"><small>Búsqueda (ms)</small><b id="mMs">0.000</b></div>
-      <div class="stat"><small>Ordenar (ms)</small><b id="mSort">0.000</b></div>
-    </div>
-
-    <div class="lotes">
-      <small>Casos de prueba:</small>
-      <button class="caso" data-n="1000">1,000</button>
-      <button class="caso" data-n="10000">10,000</button>
-      <button class="caso" data-n="100000">100,000</button>
-      <button id="btnVaciar">Vaciar</button>
-    </div>
-
-    <div class="lab" id="labPasos" hidden>
-      <h3>Rastro de la búsqueda binaria (cada barra es el intervalo que sigue vivo)</h3>
-      <div id="pasosBody"></div>
-    </div>
-
-    <div id="lista"></div>
-    </div>
-
-    <div id="tabContactos" hidden>
-      <div class="contactos-top">
-        <span id="contactosInfo"></span>
-        <div class="fila-btn">
-          <button class="orden activo" data-orden="LLEGADA">Llegada</button>
-          <button class="orden" data-orden="AZ">A → Z</button>
-          <button class="orden" data-orden="ZA">Z → A</button>
-        </div>
+  <!-- COLUMNA DERECHA: BÚSQUEDA Y DIRECTORIO -->
+  <div class="col">
+    <section class="panel">
+      <h2>Directorio de contactos</h2>
+      <div class="busq">
+        <input type="text" id="buscador" placeholder="Buscar al instante por nombre o teléfono..." aria-label="Buscar contacto">
+        <button type="button" id="btnLimpiarBusq" hidden>Limpiar</button>
       </div>
-      <div id="contactosLista"></div>
-      <div class="pag">
-        <button id="pagPrev" aria-label="Página anterior">‹</button>
-        <span id="pagInfo"></span>
-        <button id="pagNext" aria-label="Página siguiente">›</button>
+
+      <div class="resumen-bar">
+        <span id="contadorVisible">0 contactos</span>
+        <span id="modoFiltro">Mostrando todos</span>
       </div>
-    </div>
-  </section>
+
+      <div id="listaRender" class="lista-contactos"></div>
+    </section>
+  </div>
 </main>
 
+<!-- CONTENEDOR PREPARADO PARA LA PÁGINA DE MÉTRICAS (OCULTO EN VISTA PRINCIPAL) -->
+<section id="panelMetricas" data-page="metricas" hidden aria-hidden="true">
+  <div class="lotes">
+    <small>Cargar lotes de prueba:</small>
+    <button type="button" data-lote="1000">1,000 registros</button>
+    <button type="button" data-lote="10000">10,000 registros</button>
+    <button type="button" data-lote="100000">100,000 registros</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><small>Total registros</small><b id="statTotal">0</b></div>
+    <div class="stat"><small>Comparaciones</small><b id="statComp">0</b></div>
+    <div class="stat"><small>Tiempo búsqueda</small><b id="statTiempoBusq">0.00 ms</b></div>
+    <div class="stat"><small>Tiempo ordenamiento</small><b id="statTiempoOrden">0.00 ms</b></div>
+  </div>
+</section>
+
 <script>
-"use strict";
-const $ = id => document.getElementById(id);
-const S = { lista: [], orden: [], sucio: true, modo: "BASE", handle: null,
-            tels: new Set(), sortComps: 0, sortMs: 0,
-            notas: [], cumples: new Map(), cumplesOk: false };
-const MAX_FILAS = 100;
-const TIPOS = [{ description: "Texto", accept: { "text/plain": [".txt"] } }];
-const API_ARCHIVOS = "showOpenFilePicker" in window && "showSaveFilePicker" in window;
+// ============================================================================
+// ESTADO GLOBAL OPTIMIZADO (SIEMPRE ACTIVO EN SEGUNDO PLANO)
+// ============================================================================
+const S = {
+  lista: [],              // Arreglo base de contactos
+  orden: [],              // Arreglo ordenado alfabéticamente por clave normalizada
+  telefonos: new Set(),   // Set O(1) para unicidad de teléfonos
+  cumpleanos: new Map(),  // Map O(1) clave 'MM-DD' -> Array de contactos
+  notas: [],              // Conserva líneas #NOTA|fecha|texto del .txt vinculado
+  fileHandle: null        // Manejador de File System Access API
+};
 
-/* ---------- utilidades ---------- */
-const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
-const limpiar = s => s.replace(/[|\r\n]+/g, " ").trim();
-const crear = (nombre, tel, correo, nac = "") => ({ nombre, tel, correo, nac, key: norm(nombre) });
-const fmt = n => n.toLocaleString("es-MX");
-const pad = n => String(n).padStart(2, "0");
-const iso = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;          // m va de 0 a 11
-const ES_FECHA = /^\d{4}-\d{2}-\d{2}$/;
-const bisiesto = y => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
-const hoyISO = () => { const t = new Date(); return iso(t.getFullYear(), t.getMonth(), t.getDate()); };
-const fechaCorta = f => f.split("-").reverse().join("/");
-function msg(t, error = false) { const e = $("estado"); e.textContent = t; e.className = error ? "error" : ""; }
+// Telemetría expuesta para la vista/página de métricas
+window.MetricasAgenda = {
+  ultimaBusquedaMs: 0,
+  comparacionesBusqueda: 0,
+  ultimoOrdenamientoMs: 0,
+  comparacionesOrdenamiento: 0
+};
 
-/* ---------- ALGORITMOS ---------- */
-// Merge Sort (Divide y Vencerás): O(n log n). Devuelve el número de comparaciones.
-function mergeSort(a) {
-  let comps = 0;
-  const aux = new Array(a.length);
-  (function ordenar(lo, hi) {
-    if (hi - lo < 2) return;                 // caso base
-    const mid = (lo + hi) >> 1;
-    ordenar(lo, mid);                        // dividir
-    ordenar(mid, hi);
-    let i = lo, j = mid, k = lo;             // combinar
-    while (i < mid && j < hi) { comps++; aux[k++] = a[i].key <= a[j].key ? a[i++] : a[j++]; }
-    while (i < mid) aux[k++] = a[i++];
-    while (j < hi) aux[k++] = a[j++];
-    for (k = lo; k < hi; k++) a[k] = aux[k];
-  })(0, a.length);
-  return comps;
+const MAX_NODOS_DOM = 100;
+
+// ============================================================================
+// UTILIDADES DE NORMALIZACIÓN Y ESTRUCTURAS
+// ============================================================================
+function normalizarTexto(str) {
+  return (str || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
 }
 
-// Búsqueda secuencial por prefijo: O(n). Debe recorrer todo para hallar todas las coincidencias.
-function busquedaSecuencial(q) {
-  const t0 = performance.now();
-  let rev = 0; const res = [];
-  for (const c of S.lista) { rev++; if (c.key.startsWith(q)) res.push(c); }
-  return { res, rev, ms: performance.now() - t0, pasos: [] };
+function limpiarDigitos(tel) {
+  return (tel || "").replace(/\D/g, "");
 }
 
-function existeSecuencial(tel) {
-  const t0 = performance.now();
-  let rev = 0;
-  for (const c of S.lista) { rev++; if (c.tel === tel) return { existe: true, rev, ms: performance.now() - t0 }; }
-  return { existe: false, rev, ms: performance.now() - t0 };
+function claveCumple(fechaISO) {
+  if (!fechaISO || fechaISO.length < 10) return null;
+  return fechaISO.slice(5, 10); // "MM-DD"
 }
 
-// Cota inferior binaria: O(log n) para ubicar el primer prefijo + recorrido de las coincidencias.
-function posicionInferior(a, q, pasos) {
-  let lo = 0, hi = a.length, rev = 0;
-  while (lo < hi) {
-    const mid = (lo + hi) >> 1; rev++;
-    const derecha = a[mid].key < q;
-    if (pasos) pasos.push({ lo, hi, mid, val: a[mid].nombre, derecha });
-    if (derecha) lo = mid + 1; else hi = mid;
-  }
-  return { pos: lo, rev };
-}
-function busquedaBinaria(q) {
-  const t0 = performance.now();
-  const pasos = [];
-  const { pos, rev: r0 } = posicionInferior(S.orden, q, pasos);
-  let rev = r0, i = pos; const res = [];
-  while (i < S.orden.length && S.orden[i].key.startsWith(q)) { res.push(S.orden[i++]); rev++; }
-  return { res, rev, ms: performance.now() - t0, pasos };
-}
+// Merge Sort O(n log n) para reconstrucciones masivas (importación / lotes)
+function mergeSort(arr, stats = { comp: 0 }) {
+  if (arr.length <= 1) return arr.slice();
+  const mid = Math.floor(arr.length / 2);
+  const izq = mergeSort(arr.slice(0, mid), stats);
+  const der = mergeSort(arr.slice(mid), stats);
+  const res = [];
+  let i = 0, j = 0;
 
-// Inserción en arreglo ya ordenado: O(log n) para ubicar + O(n) de desplazamiento (splice).
-function insertarOrdenado(c) {
-  let lo = 0, hi = S.orden.length;
-  while (lo < hi) {
-    const mid = (lo + hi) >> 1;
-    if (S.orden[mid].key <= c.key) lo = mid + 1; else hi = mid;
-  }
-  S.orden.splice(lo, 0, c);
-}
-function asegurarOrden() {
-  if (!S.sucio) return false;
-  const t0 = performance.now();
-  S.orden = S.lista.slice();
-  S.sortComps = mergeSort(S.orden);
-  S.sortMs = performance.now() - t0;
-  S.sucio = false;
-  $("mSort").textContent = S.sortMs.toFixed(3);
-  return true;
-}
-
-// Tabla hash "MM-DD" -> contactos: cada día del calendario consulta sus cumpleaños en O(1).
-function asegurarCumples() {
-  if (S.cumplesOk) return;
-  S.cumples = new Map();
-  for (const c of S.lista) {
-    if (!c.nac) continue;
-    const k = c.nac.slice(5);
-    if (!S.cumples.has(k)) S.cumples.set(k, []);
-    S.cumples.get(k).push(c);
-  }
-  S.cumplesOk = true;
-}
-function cumplesDe(y, m, d) {
-  asegurarCumples();
-  let r = S.cumples.get(`${pad(m + 1)}-${pad(d)}`) || [];
-  if (m === 1 && d === 28 && !bisiesto(y)) r = r.concat(S.cumples.get("02-29") || []);  // nacidos el 29 de feb
-  return r;
-}
-function mapaNotas() {
-  const mp = new Map();
-  for (const n of S.notas) { if (!mp.has(n.fecha)) mp.set(n.fecha, []); mp.get(n.fecha).push(n); }
-  return mp;
-}
-
-/* ---------- casos de prueba ---------- */
-const NOMBRES = ["Ana", "Luis", "María", "José", "Sofía", "Carlos", "Valeria", "Jorge", "Camila", "Diego",
-                 "Fernanda", "Eduardo", "Regina", "Ángel", "Ximena", "Raúl", "Paola", "Iván", "Daniela", "Óscar"];
-const APELLIDOS = ["García", "Hernández", "López", "Martínez", "González", "Pérez", "Rodríguez", "Sánchez",
-                   "Ramírez", "Torres", "Flores", "Rivera", "Gómez", "Díaz", "Cruz", "Morales", "Ortiz",
-                   "Gutiérrez", "Chávez", "Ruiz", "Núñez", "Zúñiga", "Vargas", "Castro", "Mendoza"];
-function azar(semilla) {
-  return () => {
-    semilla = semilla + 0x6D2B79F5 | 0;
-    let t = Math.imul(semilla ^ semilla >>> 15, 1 | semilla);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  };
-}
-function generarCasos(n, semilla = 404) {
-  const r = azar(semilla);
-  const elegir = arr => arr[Math.floor(r() * arr.length)];
-  const lote = [];
-  for (let i = 0; i < n; i++) {
-    const nombre = `${elegir(NOMBRES)} ${elegir(APELLIDOS)} ${elegir(APELLIDOS)}`;
-    const tel = "33" + String((i * 7919 + 12345) % 100000000).padStart(8, "0");
-    const correo = `${norm(nombre).replace(/ /g, ".")}${i}@correo.com`;
-    const y = 1950 + Math.floor(r() * 61), m = Math.floor(r() * 12);
-    const d = 1 + Math.floor(r() * new Date(y, m + 1, 0).getDate());
-    lote.push(crear(nombre, tel, correo, iso(y, m, d)));
-  }
-  return lote;
-}
-
-function cargarCaso(n) {
-  const t0 = performance.now();
-  reemplazarTodo({ contactos: generarCasos(n), notas: S.notas });
-  const ms = performance.now() - t0;
-  S.handle = null; infoArchivo();
-  $("inBuscar").value = ""; $("labPasos").hidden = true;
-  $("mRev").textContent = "0"; $("mMs").textContent = "0.000";
-  pintarModo(); refrescar(); pintarCalendario();
-  msg(n ? `Caso de prueba: ${fmt(n)} contactos generados en ${ms.toFixed(1)} ms (solo en memoria; usa Descargar .txt para guardarlo).`
-        : "Agenda vacía.");
-}
-
-/* ---------- agregar contactos ---------- */
-function agregar(lote) {
-  for (const c of lote) { S.lista.push(c); S.tels.add(c.tel); }
-  if (lote.length > 1000) S.sucio = true;
-  else if (!S.sucio) { for (const c of lote) insertarOrdenado(c); }   // mantiene el orden sin re-ordenar todo
-  S.cumplesOk = false;
-}
-
-/* ---------- persistencia en contactos.txt ---------- */
-const aLinea = c => `${c.nombre}|${c.tel}|${c.correo}|${c.nac}\n`;
-const aLineaNota = n => `#NOTA|${n.fecha}|${n.texto}\n`;
-const textoCompleto = () => S.lista.map(aLinea).join("") + S.notas.map(aLineaNota).join("");
-function parsear(texto) {
-  const contactos = [], notas = [];
-  for (const linea of texto.split(/\r?\n/)) {
-    if (!linea.trim()) continue;
-    const p = linea.split("|");
-    if (p[0] === "#NOTA") {
-      if (ES_FECHA.test(p[1] || "") && p[2]) notas.push({ fecha: p[1], texto: p.slice(2).join(" ").trim() });
-      continue;
+  while (i < izq.length && j < der.length) {
+    stats.comp++;
+    if (izq[i]._clave <= der[j]._clave) {
+      res.push(izq[i++]);
+    } else {
+      res.push(der[j++]);
     }
-    const [n, t, c, nac] = p;
-    if (n && n.trim() && t) contactos.push(crear(n.trim(), t.trim(), (c || "").trim(), ES_FECHA.test((nac || "").trim()) ? nac.trim() : ""));
   }
-  return { contactos, notas };
-}
-function reemplazarTodo({ contactos, notas }) {
-  S.lista = []; S.orden = []; S.tels = new Set(); S.sucio = true;
-  const unicos = [];
-  for (const c of contactos) if (!S.tels.has(c.tel)) { S.tels.add(c.tel); unicos.push(c); }
-  agregar(unicos); S.sucio = true;
-  S.notas = notas;
-  return contactos.length - unicos.length;
-}
-const textoRepetidos = n => n ? ` Se descartaron ${fmt(n)} repetido(s).` : "";
-async function anexarTexto(texto) {
-  if (!S.handle) return;
-  try {
-    const f = await S.handle.getFile();
-    const w = await S.handle.createWritable({ keepExistingData: true });
-    await w.seek(f.size);
-    await w.write(texto);
-    await w.close();
-  } catch (e) { msg("No se pudo escribir en contactos.txt: " + e.message, true); }
-}
-async function escribirTodo() {
-  const w = await S.handle.createWritable();
-  await w.write(textoCompleto());
-  await w.close();
-}
-function infoArchivo() {
-  $("archivoInfo").textContent = S.handle
-    ? `Vinculado a: ${S.handle.name}. Cada contacto o nota nueva se agrega al final del archivo.`
-    : "Sin vincular: los datos solo viven en memoria.";
-}
-async function abrirArchivo() {
-  try {
-    const [h] = await window.showOpenFilePicker({ types: TIPOS, multiple: false });
-    await h.requestPermission({ mode: "readwrite" });
-    const texto = await (await h.getFile()).text();
-    S.handle = h;
-    const repetidos = reemplazarTodo(parsear(texto));
-    infoArchivo(); refrescar(); pintarCalendario();
-    msg(`Se cargaron ${fmt(S.lista.length)} contactos y ${fmt(S.notas.length)} notas desde ${h.name}.` + textoRepetidos(repetidos));
-  } catch (e) { if (e.name !== "AbortError") msg("No se pudo abrir: " + e.message, true); }
-}
-async function crearArchivo() {
-  try {
-    const h = await window.showSaveFilePicker({ suggestedName: "contactos.txt", types: TIPOS });
-    S.handle = h;
-    await escribirTodo();
-    infoArchivo();
-    msg(`Archivo ${h.name} listo. Se guardaron ${fmt(S.lista.length)} contactos y ${fmt(S.notas.length)} notas.`);
-  } catch (e) { if (e.name !== "AbortError") msg("No se pudo crear: " + e.message, true); }
-}
-function descargar() {
-  const blob = new Blob([textoCompleto()], { type: "text/plain;charset=utf-8" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob); a.download = "contactos.txt"; a.click();
-  URL.revokeObjectURL(a.href);
-}
-async function importar(ev) {
-  const f = ev.target.files[0]; if (!f) return;
-  const repetidos = reemplazarTodo(parsear(await f.text()));
-  refrescar(); pintarCalendario();
-  msg(`Importados ${fmt(S.lista.length)} contactos y ${fmt(S.notas.length)} notas de ${f.name}.` + textoRepetidos(repetidos));
-  ev.target.value = "";
-}
-
-/* ---------- controladores por modo ---------- */
-const CONTROL = {
-  BASE: {
-    nombre: "Secuencial",
-    titulo: "CONTACTOS (ORDEN DE LLEGADA)",
-    lista: () => S.lista,
-    buscar: q => busquedaSecuencial(q),
-    existe: tel => existeSecuencial(tel),
-    repetido: r => `Ese teléfono ya existe (revisión uno por uno: ${fmt(r.rev)} revisiones).`
-  },
-  DYV: {
-    nombre: "Binaria",
-    titulo: "CONTACTOS (ORDENADOS POR MERGE SORT)",
-    lista: () => { asegurarOrden(); return S.orden; },
-    buscar: q => { asegurarOrden(); return busquedaBinaria(q); },
-    existe: tel => ({ existe: S.tels.has(tel), rev: 1, ms: 0 }),
-    repetido: () => "Ese teléfono ya existe (detectado en O(1) con un Set)."
-  }
-};
-const control = () => CONTROL[S.modo];
-
-/* ---------- interfaz: lista y búsqueda ---------- */
-function filaContacto(c) {
-  const f = document.createElement("div"); f.className = "contacto";
-  const a = document.createElement("span"); a.textContent = c.nombre;
-  const b = document.createElement("span");
-  b.textContent = `${c.tel}  |  ${c.correo}` + (c.nac ? `  |  🎂 ${fechaCorta(c.nac)}` : "");
-  f.append(a, b);
-  return f;
-}
-function mostrarLista(arr, titulo) {
-  const box = $("lista"); box.replaceChildren();
-  const h = document.createElement("div"); h.className = "encabezado"; h.textContent = titulo; box.appendChild(h);
-  for (const c of arr.slice(0, MAX_FILAS)) box.appendChild(filaContacto(c));
-  if (arr.length > MAX_FILAS) {
-    const p = document.createElement("div"); p.className = "nota";
-    p.textContent = `Mostrando ${MAX_FILAS} de ${fmt(arr.length)} (el DOM no es un algoritmo gratis: se pagina).`;
-    box.appendChild(p);
-  }
-}
-function refrescar() {
-  $("mTotal").textContent = fmt(S.lista.length);
-  const ctl = control();
-  mostrarLista(ctl.lista(), ctl.titulo);
-  if (!$("tabContactos").hidden) pintarContactos();
-}
-const INFO_MODO = {
-  BASE: "Lista en orden de llegada · búsqueda secuencial O(n) · repetidos: revisión uno por uno O(n)",
-  DYV: "Merge Sort O(n log n) (una vez) · búsqueda binaria O(log n) · repetidos: Set O(1)"
-};
-function pintarModo() {
-  for (const [id, modo, clase] of [["btnBase", "BASE", " base"], ["btnDyv", "DYV", " dyv"]]) {
-    const activo = S.modo === modo;
-    $(id).className = "modo" + (activo ? clase : "");
-    $(id).setAttribute("aria-pressed", activo);
-  }
-  $("modoInfo").textContent = INFO_MODO[S.modo];
-  $("mSort").textContent = S.modo === "DYV" && !S.sucio ? S.sortMs.toFixed(3) : "—";
-}
-function cambiarModo(m) {
-  if (m === S.modo) return;
-  S.modo = m;
-  pintarModo();
-  if (norm($("inBuscar").value)) return buscar();
-  $("labPasos").hidden = true;
-  $("mRev").textContent = "0"; $("mMs").textContent = "0.000";
-  refrescar();
-  msg(m === "BASE" ? "Modo base: búsqueda secuencial O(n)." : "Modo DyV: Merge Sort O(n log n) + búsqueda binaria O(log n).");
-}
-function pintarPasos(pasos, n) {
-  const box = $("pasosBody"); box.replaceChildren();
-  pasos.slice(0, 25).forEach((p, i) => {
-    const t = document.createElement("div"); t.className = "paso";
-    t.textContent = `Paso ${i + 1}: [${p.lo}, ${p.hi}) mid=${p.mid} → "${p.val}" → ${p.derecha ? "ir a la derecha" : "ir a la izquierda"}`;
-    const pista = document.createElement("div"); pista.className = "pista";
-    const seg = document.createElement("i");
-    seg.style.left = (p.lo / n * 100) + "%";
-    seg.style.width = Math.max((p.hi - p.lo) / n * 100, 0.4) + "%";
-    pista.appendChild(seg); box.append(t, pista);
-  });
-  $("labPasos").hidden = pasos.length === 0;
-}
-function buscar() {
-  const q = norm($("inBuscar").value);
-  if (!q) { refrescar(); $("labPasos").hidden = true; return; }
-  const ctl = control();
-  const r = ctl.buscar(q);
-  $("mRev").textContent = fmt(r.rev);
-  $("mMs").textContent = r.ms.toFixed(3);
-  if (r.pasos.length) pintarPasos(r.pasos, S.orden.length); else $("labPasos").hidden = true;
-  mostrarLista(r.res, `RESULTADOS: ${fmt(r.res.length)} coincidencia(s)`);
-  msg(`${ctl.nombre}: ${fmt(r.rev)} revisiones en ${r.ms.toFixed(3)} ms.`);
-}
-
-/* ---------- pestaña: todos los contactos ---------- */
-const POR_PAGINA = 100;
-const T = { pagina: 0, orden: "LLEGADA" };
-function paginaContactos(inicio, fin) {
-  if (T.orden === "LLEGADA") return S.lista.slice(inicio, fin);
-  asegurarOrden();
-  if (T.orden === "AZ") return S.orden.slice(inicio, fin);
-  const n = S.orden.length, res = [];
-  for (let i = n - 1 - inicio; i >= Math.max(0, n - fin); i--) res.push(S.orden[i]);
+  while (i < izq.length) res.push(izq[i++]);
+  while (j < der.length) res.push(der[j++]);
   return res;
 }
-const TEXTO_ORDEN = { LLEGADA: "orden de llegada", AZ: "A → Z", ZA: "Z → A" };
-function pintarContactos() {
-  const total = S.lista.length, paginas = Math.max(1, Math.ceil(total / POR_PAGINA));
-  T.pagina = Math.min(T.pagina, paginas - 1);
-  const box = $("contactosLista"); box.replaceChildren();
-  for (const c of paginaContactos(T.pagina * POR_PAGINA, (T.pagina + 1) * POR_PAGINA)) box.appendChild(filaContacto(c));
-  if (!total) { const p = document.createElement("div"); p.className = "nota"; p.textContent = "La agenda está vacía."; box.appendChild(p); }
-  $("contactosInfo").textContent = `${fmt(total)} contactos · ${TEXTO_ORDEN[T.orden]}` +
-    (T.orden === "LLEGADA" ? "" : ` (Merge Sort: ${S.sortMs.toFixed(1)} ms)`);
-  $("pagInfo").textContent = `Página ${fmt(T.pagina + 1)} de ${fmt(paginas)}`;
-  $("pagPrev").disabled = T.pagina === 0;
-  $("pagNext").disabled = T.pagina >= paginas - 1;
-}
-function abrirTab(id) {
-  document.querySelectorAll(".tab").forEach(b => {
-    const activa = b.dataset.tab === id;
-    b.classList.toggle("activa", activa); b.setAttribute("aria-selected", activa);
-  });
-  $("tabBusqueda").hidden = id !== "tabBusqueda";
-  $("tabContactos").hidden = id !== "tabContactos";
-  if (id === "tabContactos") pintarContactos();
-}
 
-/* ---------- calendario ---------- */
-const hoy0 = new Date();
-const C = { anio: hoy0.getFullYear(), mes: hoy0.getMonth(), sel: hoyISO() };
-const nombreFecha = (y, m, d, o) => new Date(y, m, d).toLocaleDateString("es-MX", o);
-
-function pintarCalendario() {
-  const g = $("calGrid"); g.replaceChildren();
-  ["D", "L", "M", "M", "J", "V", "S"].forEach(x => {
-    const d = document.createElement("div"); d.className = "dow"; d.textContent = x; g.appendChild(d);
-  });
-  $("calTitulo").textContent = nombreFecha(C.anio, C.mes, 1, { month: "long", year: "numeric" });
-  const primero = new Date(C.anio, C.mes, 1).getDay();
-  const dias = new Date(C.anio, C.mes + 1, 0).getDate();
-  const hoy = hoyISO(), nm = mapaNotas();
-  for (let i = 0; i < primero; i++) {
-    const v = document.createElement("div"); v.className = "dia vacio"; g.appendChild(v);
-  }
-  for (let d = 1; d <= dias; d++) {
-    const f = iso(C.anio, C.mes, d);
-    const el = document.createElement("div");
-    el.className = "dia" + (f === hoy ? " hoy" : "") + (f === C.sel ? " sel" : "");
-    el.textContent = d;
-    const hayC = cumplesDe(C.anio, C.mes, d).length > 0, hayN = nm.has(f);
-    if (hayC || hayN) {
-      const pt = document.createElement("div"); pt.className = "pt";
-      if (hayC) { const i = document.createElement("i"); i.className = "cum"; pt.appendChild(i); }
-      if (hayN) { const i = document.createElement("i"); i.className = "not"; pt.appendChild(i); }
-      el.appendChild(pt);
-    }
-    el.onclick = () => { C.sel = f; pintarCalendario(); };
-    g.appendChild(el);
-  }
-  pintarDetalle(nm);
-  pintarProximos(nm);
-}
-function textoCumple(c, y) {
-  const edad = y - Number(c.nac.slice(0, 4));
-  return `🎂 ${c.nombre} cumple ${edad} año${edad === 1 ? "" : "s"}`;
-}
-function pintarDetalle(nm) {
-  const box = $("calDetalle"); box.replaceChildren();
-  const [y, m, d] = C.sel.split("-").map(Number);
-  const t = document.createElement("div"); t.className = "det-titulo";
-  t.textContent = nombreFecha(y, m - 1, d, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  box.appendChild(t);
-  const cum = cumplesDe(y, m - 1, d), notas = nm.get(C.sel) || [];
-  cum.slice(0, 5).forEach(c => {
-    const it = document.createElement("div"); it.className = "item"; it.textContent = textoCumple(c, y); box.appendChild(it);
-  });
-  if (cum.length > 5) { const it = document.createElement("div"); it.className = "item"; it.textContent = `...y ${cum.length - 5} cumpleaños más`; box.appendChild(it); }
-  notas.forEach(n => {
-    const it = document.createElement("div"); it.className = "item";
-    const s = document.createElement("span"); s.textContent = "📝 " + n.texto;
-    const b = document.createElement("button"); b.textContent = "✕"; b.title = "Borrar nota";
-    b.onclick = () => borrarNota(n);
-    it.append(s, b); box.appendChild(it);
-  });
-  if (!cum.length && !notas.length) {
-    const p = document.createElement("div"); p.className = "nota"; p.textContent = "Sin eventos este día."; box.appendChild(p);
-  }
-}
-function pintarProximos(nm) {
-  const box = $("calProx"); box.replaceChildren();
-  const t = new Date(); let lineas = 0, total = 0;
-  for (let i = 0; i < 30; i++) {
-    const dt = new Date(t.getFullYear(), t.getMonth(), t.getDate() + i);
-    const y = dt.getFullYear(), m = dt.getMonth(), d = dt.getDate(), f = iso(y, m, d);
-    const items = [];
-    const cum = cumplesDe(y, m, d);
-    cum.slice(0, 3).forEach(c => items.push(textoCumple(c, y)));
-    if (cum.length > 3) items.push(`🎂 +${cum.length - 3} cumpleaños más`);
-    (nm.get(f) || []).forEach(n => items.push("📝 " + n.texto));
-    for (const txt of items) {
-      total++;
-      if (lineas >= 15) continue;
-      lineas++;
-      const it = document.createElement("div"); it.className = "item clic";
-      const etiqueta = i === 0 ? "Hoy" : i === 1 ? "Mañana" : dt.toLocaleDateString("es-MX", { weekday: "short", day: "numeric", month: "short" });
-      it.textContent = `${etiqueta}: ${txt}`;
-      it.onclick = () => { C.anio = y; C.mes = m; C.sel = f; pintarCalendario(); };
-      box.appendChild(it);
+// Lower Bound (Cota inferior) O(log n) sobre S.orden
+function lowerBound(arrOrdenado, prefijoNorm, stats = { comp: 0 }) {
+  let lo = 0;
+  let hi = arrOrdenado.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >>> 1;
+    stats.comp++;
+    if (arrOrdenado[mid]._clave < prefijoNorm) {
+      lo = mid + 1;
+    } else {
+      hi = mid;
     }
   }
-  if (!total) { const p = document.createElement("div"); p.className = "nota"; p.textContent = "Nada programado en los próximos 30 días."; box.appendChild(p); }
-  else if (total > lineas) { const p = document.createElement("div"); p.className = "nota"; p.textContent = `...y ${total - lineas} más.`; box.appendChild(p); }
-}
-async function agregarNota() {
-  const texto = limpiar($("inNota").value);
-  if (!texto) return msg("Escribe el texto de la nota.", true);
-  const n = { fecha: C.sel, texto };
-  S.notas.push(n);
-  await anexarTexto(aLineaNota(n));
-  $("inNota").value = "";
-  pintarCalendario();
-  msg(`Nota guardada para ${fechaCorta(C.sel)}.` + (S.handle ? " Agregada a contactos.txt." : " (solo en memoria; vincula contactos.txt)"));
-}
-async function borrarNota(n) {
-  S.notas = S.notas.filter(x => x !== n);
-  if (S.handle) { try { await escribirTodo(); } catch (e) { msg("No se pudo actualizar contactos.txt: " + e.message, true); } }
-  pintarCalendario();
-  msg("Nota borrada.");
+  return lo;
 }
 
-/* ---------- pruebas de casos borde (Divide y Vencerás) ---------- */
-function pruebasDyV() {
-  const respaldo = { lista: S.lista, orden: S.orden, sucio: S.sucio, tels: S.tels, sortComps: S.sortComps, sortMs: S.sortMs };
-  const resultados = [];
-  const caso = (nombre, ok) => resultados.push({ caso: nombre, resultado: ok ? "OK" : "FALLA" });
-  const cargar = nombres => {
-    S.lista = nombres.map((n, i) => crear(n, String(i), "", "")); S.tels = new Set(); S.sucio = true;
-    asegurarOrden();
+// Inserción ordenada O(log n) en S.orden
+function insertarOrdenado(contacto) {
+  const idx = lowerBound(S.orden, contacto._clave);
+  S.orden.splice(idx, 0, contacto);
+}
+
+// Eliminación sincronizada en S.orden
+function eliminarDeOrden(telefonoLimpio, claveAnterior) {
+  let idx = lowerBound(S.orden, claveAnterior);
+  while (idx < S.orden.length && S.orden[idx]._clave === claveAnterior) {
+    if (S.orden[idx].telefono === telefonoLimpio) {
+      S.orden.splice(idx, 1);
+      return;
+    }
+    idx++;
+  }
+  // Respaldo por seguridad si cambió la clave
+  const fallback = S.orden.findIndex(c => c.telefono === telefonoLimpio);
+  if (fallback !== -1) S.orden.splice(fallback, 1);
+}
+
+// Gestión del Map de cumpleaños O(1)
+function agregarCumpleMap(contacto) {
+  const clave = claveCumple(contacto.nacimiento);
+  if (!clave) return;
+  if (!S.cumpleanos.has(clave)) S.cumpleanos.set(clave, []);
+  S.cumpleanos.get(clave).push(contacto);
+}
+
+function quitarCumpleMap(telefonoLimpio, fechaAnterior) {
+  const clave = claveCumple(fechaAnterior);
+  if (!clave || !S.cumpleanos.has(clave)) return;
+  const listaDia = S.cumpleanos.get(clave).filter(c => c.telefono !== telefonoLimpio);
+  if (listaDia.length === 0) {
+    S.cumpleanos.delete(clave);
+  } else {
+    S.cumpleanos.set(clave, listaDia);
+  }
+}
+
+// ============================================================================
+// OPERACIONES CRUD SINCRONIZADAS (S.lista, S.orden, Set, Map, contactos.txt)
+// ============================================================================
+async function guardarContacto(datos, telefonoOriginal = "") {
+  const nombre = datos.nombre.trim();
+  const tel = limpiarDigitos(datos.telefono);
+  const correo = (datos.correo || "").trim();
+  const nacimiento = (datos.nacimiento || "").trim();
+
+  if (!nombre) throw new Error("El nombre es obligatorio.");
+  if (tel.length < 7) throw new Error("Ingresa un teléfono válido (mínimo 7 dígitos).");
+
+  const esEdicion = Boolean(telefonoOriginal);
+
+  // Validar duplicados en O(1) con Set
+  if (!esEdicion && S.telefonos.has(tel)) {
+    throw new Error(`El teléfono ${tel} ya está registrado.`);
+  }
+  if (esEdicion && tel !== telefonoOriginal && S.telefonos.has(tel)) {
+    throw new Error(`El nuevo teléfono ${tel} ya pertenece a otro contacto.`);
+  }
+
+  const nuevoObj = {
+    nombre,
+    telefono: tel,
+    correo,
+    nacimiento,
+    _clave: normalizarTexto(nombre)
   };
-  const cuantos = q => busquedaBinaria(norm(q)).res.length;
-  const ordenado = () => S.orden.every((c, i) => i === 0 || S.orden[i - 1].key <= c.key);
-  const igualQueSecuencial = q => {
-    const sec = new Set(busquedaSecuencial(q).res), bin = busquedaBinaria(q).res;
-    return sec.size === bin.length && bin.every(c => sec.has(c));
-  };
+
+  if (esEdicion) {
+    const idxLista = S.lista.findIndex(c => c.telefono === telefonoOriginal);
+    if (idxLista === -1) throw new Error("No se encontró el contacto original para editar.");
+    const anterior = S.lista[idxLista];
+
+    // 1. Actualizar S.lista
+    S.lista[idxLista] = nuevoObj;
+
+    // 2. Actualizar S.orden
+    eliminarDeOrden(anterior.telefono, anterior._clave);
+    insertarOrdenado(nuevoObj);
+
+    // 3. Actualizar Set de teléfonos
+    if (anterior.telefono !== tel) {
+      S.telefonos.delete(anterior.telefono);
+      S.telefonos.add(tel);
+    }
+
+    // 4. Actualizar Map de cumpleaños
+    quitarCumpleMap(anterior.telefono, anterior.nacimiento);
+    agregarCumpleMap(nuevoObj);
+  } else {
+    // Alta nueva sincronizada
+    S.lista.push(nuevoObj);
+    insertarOrdenado(nuevoObj);
+    S.telefonos.add(tel);
+    agregarCumpleMap(nuevoObj);
+  }
+
+  // 5. Sincronizar archivo contactos.txt vinculado
+  await sincronizarArchivoVinculado();
+  actualizarTelemetriaDOM();
+  ejecutarBusquedaInstantanea();
+}
+
+async function eliminarContacto(telefonoLimpio) {
+  const idxLista = S.lista.findIndex(c => c.telefono === telefonoLimpio);
+  if (idxLista === -1) return;
+
+  const contacto = S.lista[idxLista];
+
+  // 1. Quitar de S.lista
+  S.lista.splice(idxLista, 1);
+
+  // 2. Quitar de S.orden
+  eliminarDeOrden(contacto.telefono, contacto._clave);
+
+  // 3. Quitar del Set de teléfonos
+  S.telefonos.delete(contacto.telefono);
+
+  // 4. Quitar del Map de cumpleaños
+  quitarCumpleMap(contacto.telefono, contacto.nacimiento);
+
+  // Si se estaba editando este mismo contacto, resetear formulario
+  if (document.getElementById("editTelefonoOriginal").value === telefonoLimpio) {
+    cancelarEdicion();
+  }
+
+  // 5. Sincronizar archivo contactos.txt vinculado
+  await sincronizarArchivoVinculado();
+  actualizarTelemetriaDOM();
+  ejecutarBusquedaInstantanea();
+  mostrarEstado(`Contacto "${contacto.nombre}" eliminado.`);
+}
+
+// ============================================================================
+// BÚSQUEDA INSTANTÁNEA (BINARIA PARA NOMBRES / DÍGITOS PARA TELÉFONOS)
+// ============================================================================
+function ejecutarBusquedaInstantanea() {
+  const raw = document.getElementById("buscador").value;
+  const query = raw.trim();
+  const btnLimpiar = document.getElementById("btnLimpiarBusq");
+  const modoFiltro = document.getElementById("modoFiltro");
+
+  btnLimpiar.hidden = query.length === 0;
+
+  const t0 = performance.now();
+  const stats = { comp: 0 };
+  let resultados = [];
+
+  if (!query) {
+    resultados = S.orden;
+    modoFiltro.textContent = "Orden alfabético (A–Z)";
+  } else if (/^\d[\d\s\-()]*$/.test(query)) {
+    // Filtrado rápido por dígitos para teléfonos
+    const digitosBuscados = limpiarDigitos(query);
+    for (let i = 0; i < S.orden.length; i++) {
+      stats.comp++;
+      if (S.orden[i].telefono.includes(digitosBuscados)) {
+        resultados.push(S.orden[i]);
+      }
+    }
+    modoFiltro.textContent = `Filtro por teléfono ("${digitosBuscados}")`;
+  } else {
+    // Búsqueda Binaria (Lower Bound) O(log n) por prefijo de nombre
+    const prefijo = normalizarTexto(query);
+    let idx = lowerBound(S.orden, prefijo, stats);
+    while (idx < S.orden.length) {
+      stats.comp++;
+      if (S.orden[idx]._clave.startsWith(prefijo)) {
+        resultados.push(S.orden[idx]);
+        idx++;
+      } else {
+        break;
+      }
+    }
+    modoFiltro.textContent = `Búsqueda binaria por nombre ("${query}")`;
+  }
+
+  const t1 = performance.now();
+  window.MetricasAgenda.ultimaBusquedaMs = +(t1 - t0).toFixed(4);
+  window.MetricasAgenda.comparacionesBusqueda = stats.comp;
+
+  actualizarTelemetriaDOM();
+  renderizarLista(resultados);
+}
+
+// ============================================================================
+// RENDERIZADO DEL DIRECTORIO (CON BOTONES EDITAR Y ELIMINAR)
+// ============================================================================
+function renderizarLista(lista) {
+  const contenedor = document.getElementById("listaRender");
+  const contador = document.getElementById("contadorVisible");
+
+  const total = lista.length;
+  const visibles = lista.slice(0, MAX_NODOS_DOM);
+
+  contador.textContent = total === 1
+    ? "1 contacto encontrado"
+    : `${total.toLocaleString("es-MX")} contactos${total > MAX_NODOS_DOM ? ` (mostrando primeros ${MAX_NODOS_DOM})` : ""}`;
+
+  if (total === 0) {
+    contenedor.innerHTML = `<div class="vacio">No hay contactos que coincidan con la búsqueda.</div>`;
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  for (const c of visibles) {
+    const card = document.createElement("div");
+    card.className = "item";
+
+    const info = document.createElement("div");
+    info.className = "item-info";
+
+    const nom = document.createElement("div");
+    nom.className = "item-nom";
+    nom.textContent = c.nombre;
+
+    const det = document.createElement("div");
+    det.className = "item-det";
+    det.innerHTML = `
+      <span>Tel: <strong>${c.telefono}</strong></span>
+      ${c.correo ? `<span>${escapeHTML(c.correo)}</span>` : ""}
+      ${c.nacimiento ? `<span>Nac: ${c.nacimiento}</span>` : ""}
+    `;
+
+    info.append(nom, det);
+
+    const acc = document.createElement("div");
+    acc.className = "item-acc";
+
+    const btnEdit = document.createElement("button");
+    btnEdit.type = "button";
+    btnEdit.className = "btn-sm ambar";
+    btnEdit.textContent = "Editar";
+    btnEdit.addEventListener("click", () => iniciarEdicion(c));
+
+    const btnDel = document.createElement("button");
+    btnDel.type = "button";
+    btnDel.className = "btn-sm rojo";
+    btnDel.textContent = "Eliminar";
+    btnDel.addEventListener("click", () => {
+      if (confirm(`¿Eliminar a ${c.nombre} (${c.telefono})?`)) {
+        eliminarContacto(c.telefono);
+      }
+    });
+
+    acc.append(btnEdit, btnDel);
+    card.append(info, acc);
+    frag.appendChild(card);
+  }
+
+  contenedor.innerHTML = "";
+  contenedor.appendChild(frag);
+}
+
+function escapeHTML(str) {
+  return str.replace(/[&<>"']/g, m => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[m]));
+}
+
+// ============================================================================
+// EDICIÓN EN FORMULARIO
+// ============================================================================
+function iniciarEdicion(contacto) {
+  document.getElementById("formTitulo").textContent = "Editar contacto";
+  document.getElementById("editTelefonoOriginal").value = contacto.telefono;
+  document.getElementById("nombre").value = contacto.nombre;
+  document.getElementById("telefono").value = contacto.telefono;
+  document.getElementById("correo").value = contacto.correo || "";
+  document.getElementById("nacimiento").value = contacto.nacimiento || "";
+  document.getElementById("btnGuardar").textContent = "Actualizar contacto";
+  document.getElementById("btnCancelarEdicion").hidden = false;
+  document.getElementById("nombre").focus();
+  mostrarEstado(`Editando a ${contacto.nombre}...`);
+}
+
+function cancelarEdicion() {
+  document.getElementById("formContacto").reset();
+  document.getElementById("editTelefonoOriginal").value = "";
+  document.getElementById("formTitulo").textContent = "Nuevo contacto";
+  document.getElementById("btnGuardar").textContent = "Guardar contacto";
+  document.getElementById("btnCancelarEdicion").hidden = true;
+}
+
+// ============================================================================
+// PERSISTENCIA EN ARCHIVO PLANO (contactos.txt)
+// ============================================================================
+function serializarContenidoTxt() {
+  const lineasContactos = S.orden.map(c =>
+    [c.nombre, c.telefono, c.correo || "", c.nacimiento || ""].join("|")
+  );
+  return [...lineasContactos, ...S.notas].join("\n") + (lineasContactos.length || S.notas.length ? "\n" : "");
+}
+
+function cargarDesdeTexto(contenido) {
+  const lineas = contenido.split(/\r?\n/);
+  const nuevosContactos = [];
+  const nuevasNotas = [];
+  const setTel = new Set();
+  const mapCumple = new Map();
+
+  for (const linea of lineas) {
+    const l = linea.trim();
+    if (!l) continue;
+    if (l.startsWith("#NOTA|")) {
+      nuevasNotas.push(l);
+      continue;
+    }
+    const [nombre = "", telRaw = "", correo = "", nacimiento = ""] = l.split("|");
+    const tel = limpiarDigitos(telRaw);
+    if (!nombre.trim() || !tel || setTel.has(tel)) continue;
+
+    const obj = {
+      nombre: nombre.trim(),
+      telefono: tel,
+      correo: correo.trim(),
+      nacimiento: nacimiento.trim(),
+      _clave: normalizarTexto(nombre)
+    };
+    setTel.add(tel);
+    nuevosContactos.push(obj);
+
+    const cc = claveCumple(obj.nacimiento);
+    if (cc) {
+      if (!mapCumple.has(cc)) mapCumple.set(cc, []);
+      mapCumple.get(cc).push(obj);
+    }
+  }
+
+  const t0 = performance.now();
+  const statsOrden = { comp: 0 };
+  S.lista = nuevosContactos;
+  S.orden = mergeSort(nuevosContactos, statsOrden);
+  S.telefonos = setTel;
+  S.cumpleanos = mapCumple;
+  S.notas = nuevasNotas;
+  const t1 = performance.now();
+
+  window.MetricasAgenda.ultimoOrdenamientoMs = +(t1 - t0).toFixed(4);
+  window.MetricasAgenda.comparacionesOrdenamiento = statsOrden.comp;
+
+  actualizarTelemetriaDOM();
+  ejecutarBusquedaInstantanea();
+}
+
+async function sincronizarArchivoVinculado() {
+  if (!S.fileHandle) return;
   try {
-    cargar([]);
-    caso("Agenda vacía", cuantos("ana") === 0);
-    cargar(["Ana"]);
-    caso("Un solo contacto (sí está)", cuantos("an") === 1);
-    caso("Un solo contacto (no está)", cuantos("zz") === 0);
-    cargar(["Luis", "Ana", "Beto"]);
-    caso("Prefijo menor que el primero", cuantos("aa") === 0);
-    caso("Prefijo mayor que el último", cuantos("zzz") === 0);
-    caso("Prefijo más largo que los nombres", cuantos("luis fernando") === 0);
-    cargar(["Ana", "Ana", "Ana", "Ana"]);
-    caso("Todos los nombres iguales", cuantos("ana") === 4);
-    cargar(["Ángel Núñez", "angel nunez", "ÁNGEL"]);
-    caso("Acentos y mayúsculas", cuantos("Angel") === 3);
-    cargar(["Ana", "Beto", "Ana"]);
-    caso("Merge Sort es estable (iguales en orden de llegada)", S.orden[0].tel === "0" && S.orden[1].tel === "2");
-    cargar(["Carlos", "Ana", "Ernesto"]);
-    for (const n of ["Aarón", "Zoe", "Diana", "Ana"]) agregar([crear(n, "x" + n, "", "")]);
-    caso("Insertar al inicio, en medio y al final", ordenado() && S.orden[0].nombre === "Aarón" && S.orden.at(-1).nombre === "Zoe");
-    caso("Nombre repetido queda después de los iguales", S.orden[1].tel === "1" && S.orden[2].tel === "xAna");
-    cargar(generarCasos(2000, 99).map(c => c.nombre));
-    caso("Merge Sort deja 2,000 contactos ordenados", ordenado());
-    const r = azar(7); let iguales = true;
-    for (let k = 0; k < 200; k++) {
-      const key = S.lista[Math.floor(r() * S.lista.length)].key;
-      iguales = iguales && igualQueSecuencial(key.slice(0, 1 + Math.floor(r() * key.length)));
-    }
-    caso("200 búsquedas al azar = mismos resultados que la secuencial", iguales);
-    const pasos = posicionInferior(S.orden, "m", null).rev, cota = Math.ceil(Math.log2(S.orden.length + 1));
-    caso(`La binaria usa a lo más ⌈log₂(n+1)⌉ pasos (${pasos} ≤ ${cota})`, pasos <= cota);
-  } finally {
-    Object.assign(S, respaldo); S.cumplesOk = false;
-    pintarModo(); refrescar();
+    const writable = await S.fileHandle.createWritable();
+    await writable.write(serializarContenidoTxt());
+    await writable.close();
+  } catch (err) {
+    mostrarEstado("No se pudo escribir en contactos.txt: " + err.message, true);
   }
-  console.table(resultados);
-  const ok = resultados.filter(x => x.resultado === "OK").length;
-  return `${ok} de ${resultados.length} casos OK`;
 }
 
-/* ---------- eventos ---------- */
-$("btnBase").onclick = () => cambiarModo("BASE");
-$("btnDyv").onclick = () => cambiarModo("DYV");
-$("btnBuscar").onclick = buscar;
-$("btnTodos").onclick = () => { $("inBuscar").value = ""; $("labPasos").hidden = true; refrescar(); };
-$("inBuscar").addEventListener("keydown", e => { if (e.key === "Enter") buscar(); });
-$("btnDescargar").onclick = descargar;
-document.querySelectorAll(".caso").forEach(b => b.onclick = () => cargarCaso(Number(b.dataset.n)));
-$("btnVaciar").onclick = () => cargarCaso(0);
-document.querySelectorAll(".tab").forEach(b => b.onclick = () => abrirTab(b.dataset.tab));
-document.querySelectorAll(".orden").forEach(b => b.onclick = () => {
-  T.orden = b.dataset.orden; T.pagina = 0;
-  document.querySelectorAll(".orden").forEach(x => x.classList.toggle("activo", x === b));
-  pintarContactos();
-});
-$("pagPrev").onclick = () => { T.pagina--; pintarContactos(); };
-$("pagNext").onclick = () => { T.pagina++; pintarContactos(); };
-$("inImportar").onchange = importar;
-$("btnAbrir").onclick = abrirArchivo;
-$("btnCrear").onclick = crearArchivo;
-$("btnNota").onclick = agregarNota;
-$("inNota").addEventListener("keydown", e => { if (e.key === "Enter") agregarNota(); });
-$("calPrev").onclick = () => { if (--C.mes < 0) { C.mes = 11; C.anio--; } pintarCalendario(); };
-$("calNext").onclick = () => { if (++C.mes > 11) { C.mes = 0; C.anio++; } pintarCalendario(); };
-if (!API_ARCHIVOS) {
-  $("btnAbrir").hidden = $("btnCrear").hidden = true;
-  $("archivoInfo").textContent = "Tu navegador no permite escribir archivos directamente (usa Chrome o Edge). Usa Descargar/Importar .txt.";
+// ============================================================================
+// TELEMETRÍA PARA PÁGINA DE MÉTRICAS Y GENERADOR DE LOTES
+// ============================================================================
+function actualizarTelemetriaDOM() {
+  document.getElementById("statTotal").textContent = S.lista.length.toLocaleString("es-MX");
+  document.getElementById("statComp").textContent = window.MetricasAgenda.comparacionesBusqueda.toLocaleString("es-MX");
+  document.getElementById("statTiempoBusq").textContent = `${window.MetricasAgenda.ultimaBusquedaMs.toFixed(2)} ms`;
+  document.getElementById("statTiempoOrden").textContent = `${window.MetricasAgenda.ultimoOrdenamientoMs.toFixed(2)} ms`;
 }
-$("inNac").max = hoyISO();
 
-$("form").addEventListener("submit", async ev => {
-  ev.preventDefault();
-  const nombre = limpiar($("inNombre").value), tel = $("inTel").value.replace(/[\s\-()]/g, ""), correo = limpiar($("inCorreo").value), nac = $("inNac").value;
-  if (nombre.length < 3) return msg("El nombre es muy corto.", true);
-  if (!/^\+?\d{7,15}$/.test(tel)) return msg("Teléfono inválido: solo dígitos, de 7 a 15.", true);
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return msg("Correo inválido.", true);
-  if (!ES_FECHA.test(nac) || nac < "1900-01-01" || nac > hoyISO()) return msg("Fecha de nacimiento inválida (entre 1900 y hoy).", true);
-  const ctl = control(), dup = ctl.existe(tel);
-  $("mRev").textContent = fmt(dup.rev);
-  $("mMs").textContent = dup.ms.toFixed(3);
-  if (dup.existe) return msg(ctl.repetido(dup), true);
-  const c = crear(nombre, tel, correo, nac);
-  agregar([c]);
-  await anexarTexto(aLinea(c));
-  ev.target.reset(); refrescar(); pintarCalendario();
-  msg(`Guardado: ${nombre}.` + (S.handle ? " Agregado a contactos.txt." : " (solo en memoria; vincula contactos.txt)"));
+function generarLotePrueba(cantidad) {
+  const nombres = ["Ana", "Luis", "Carlos", "María", "Jorge", "Valeria", "Diego", "Sofía", "Eduardo", "Camila"];
+  const apellidos = ["García", "Ortiz", "Hernández", "Mendoza", "Torres", "Ruiz", "López", "Castro", "Gómez", "Ramírez"];
+  const lineas = [];
+  for (let i = 0; i < cantidad; i++) {
+    const nom = `${nombres[i % nombres.length]} ${apellidos[(i * 7) % apellidos.length]} ${i + 1}`;
+    const tel = String(3300000000 + i);
+    const mes = String((i % 12) + 1).padStart(2, "0");
+    const dia = String((i % 28) + 1).padStart(2, "0");
+    lineas.push(`${nom}|${tel}|usuario${i + 1}@equipo404.dev|1995-${mes}-${dia}`);
+  }
+  cargarDesdeTexto(lineas.join("\n"));
+  sincronizarArchivoVinculado();
+}
+
+// ============================================================================
+// EVENTOS DE INTERFAZ
+// ============================================================================
+function mostrarEstado(msg, esError = false) {
+  const el = document.getElementById("estado");
+  el.textContent = msg;
+  el.className = esError ? "error" : "";
+}
+
+document.getElementById("formContacto").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const editOriginal = document.getElementById("editTelefonoOriginal").value;
+  try {
+    await guardarContacto({
+      nombre: document.getElementById("nombre").value,
+      telefono: document.getElementById("telefono").value,
+      correo: document.getElementById("correo").value,
+      nacimiento: document.getElementById("nacimiento").value
+    }, editOriginal);
+
+    cancelarEdicion();
+    mostrarEstado(editOriginal ? "Contacto actualizado y sincronizado." : "Contacto guardado y sincronizado.");
+  } catch (err) {
+    mostrarEstado(err.message, true);
+  }
 });
 
-// Contactos de ejemplo del proyecto original
-agregar([crear("Ana García", "3310000001", "ana.garcia@equipo404.dev", "1998-11-28"),
-         crear("Luis Ortiz", "3310000002", "luis.ortiz@equipo404.dev", "2000-12-05")]);
-pintarModo();
-refrescar();
-pintarCalendario();
+document.getElementById("btnCancelarEdicion").addEventListener("click", () => {
+  cancelarEdicion();
+  mostrarEstado("Edición cancelada.");
+});
+
+// Búsqueda instantánea al escribir
+document.getElementById("buscador").addEventListener("input", ejecutarBusquedaInstantanea);
+
+document.getElementById("btnLimpiarBusq").addEventListener("click", () => {
+  const input = document.getElementById("buscador");
+  input.value = "";
+  input.focus();
+  ejecutarBusquedaInstantanea();
+});
+
+// Controles de archivo contactos.txt
+document.getElementById("btnAbrirTxt").addEventListener("click", async () => {
+  if (!window.showOpenFilePicker) {
+    mostrarEstado("Tu navegador no soporta vinculación directa. Usa 'Importar .txt'.", true);
+    return;
+  }
+  try {
+    const [handle] = await window.showOpenFilePicker({
+      types: [{ description: "Archivo de texto", accept: { "text/plain": [".txt"] } }]
+    });
+    S.fileHandle = handle;
+    const file = await handle.getFile();
+    cargarDesdeTexto(await file.text());
+    document.getElementById("archivoInfo").textContent = `Vinculado: ${file.name} (${S.lista.length} contactos)`;
+    mostrarEstado("Archivo vinculado correctamente.");
+  } catch (err) {
+    if (err.name !== "AbortError") mostrarEstado(err.message, true);
+  }
+});
+
+document.getElementById("btnCrearTxt").addEventListener("click", async () => {
+  if (!window.showSaveFilePicker) {
+    mostrarEstado("Tu navegador no soporta creación directa. Usa 'Descargar .txt'.", true);
+    return;
+  }
+  try {
+    const handle = await window.showSaveFilePicker({
+      suggestedName: "contactos.txt",
+      types: [{ description: "Archivo de texto", accept: { "text/plain": [".txt"] } }]
+    });
+    S.fileHandle = handle;
+    await sincronizarArchivoVinculado();
+    document.getElementById("archivoInfo").textContent = `Vinculado: ${handle.name}`;
+    mostrarEstado("Archivo contactos.txt creado y vinculado.");
+  } catch (err) {
+    if (err.name !== "AbortError") mostrarEstado(err.message, true);
+  }
+});
+
+document.getElementById("inputImportar").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  cargarDesdeTexto(await file.text());
+  await sincronizarArchivoVinculado();
+  document.getElementById("archivoInfo").textContent = S.fileHandle
+    ? `Vinculado: ${S.fileHandle.name} (importado ${file.name})`
+    : `Importado en memoria: ${file.name}`;
+  mostrarEstado(`Se cargaron ${S.lista.length} contactos.`);
+  e.target.value = "";
+});
+
+document.getElementById("btnDescargarTxt").addEventListener("click", () => {
+  const blob = new Blob([serializarContenidoTxt()], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "contactos.txt";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+// Eventos delegados para los lotes (cuando se monten en la página de métricas)
+document.getElementById("panelMetricas").addEventListener("click", (e) => {
+  const lote = e.target.dataset.lote;
+  if (lote) generarLotePrueba(Number(lote));
+});
+
+// Inicialización con registros base de ejemplo
+cargarDesdeTexto(`Ana García|3310000001|ana.garcia@equipo404.dev|1998-11-28
+Luis Ortiz|3310000002|luis.ortiz@equipo404.dev|2000-12-05
+#NOTA|2026-11-30|Entregar proyecto de Análisis de Algoritmos`);
 </script>
 </body>
 </html>
